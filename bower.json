@@ -1,0 +1,33 @@
+{
+  "name": "raffleprizes",
+  "description": "Генератор розыгрыша призов",
+  "main": "package.json",
+  "authors": [
+    "ProjectSoft <projectsoft2009@yandex.ru>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "raffle",
+    "prizes",
+    "nwjs"
+  ],
+  "homepage": "https://github.com/ProjectSoft-STUDIONIONS/rafflePrizes",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "latest",
+    "normalize-css": "normalize.css#>=7.0.0",
+    "jquery.forestedglass": "https://github.com/ProjectSoft-STUDIONIONS/jquery.forestedglass.git",
+    "exif-js": "https://github.com/jseidelin/exif-js.git",
+    "Croppie": "https://github.com/Foliotek/Croppie.git",
+    "fancybox": "https://github.com/fancyapps/fancybox.git",
+    "jquery.cookie": "https://github.com/carhartl/jquery-cookie.git",
+    "jquery-ui": "https://github.com/components/jqueryui.git#^1.12.1"
+  },
+  "dependencies": {}
+}
