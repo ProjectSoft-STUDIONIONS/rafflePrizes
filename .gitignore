@@ -16,5 +16,6 @@ src/res/*.ddr
 src/res/*.dof
 package-lock.json
 !**/.gitignore
+!**/.gitattributes
 !src/bin/*.svg
 !src/bin/*.zip

@@ -91,7 +91,6 @@ Name: {app}\; Type: filesandordirs
 
 [Files]
 #include AddBackslash(SourcePath) + "parseroption.iss"
-; Source: dlls\InnoCallback.dll; DestDir: {tmp}; Flags: dontcopy
 Source: src\dlls\CallbackCtrl.dll; DestDir: {tmp}; Flags: dontcopy
 Source: src\res\RafflePrizes.dll; DestDir: {tmp}; Flags: dontcopy
 #emit ProcessFolder('src\embed', '{app}', False, 'Is64BitInstallMode')
