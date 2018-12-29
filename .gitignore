@@ -2,6 +2,9 @@
 bin/**/*
 cache/**/*
 installer/**/*
+project/**/*
+prejscss/**/*
+nw/**/*
 node_modules/**/*
 bower_components/**/*
 test/**/*

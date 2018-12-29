@@ -1,0 +1,78 @@
+
+.font(@local; @oslocal; @style; @weight;) {
+	@font-face {
+		font-family: '@{fontfamily}';
+		font-style: @style;
+		font-weight: @weight;
+		src: local(@local),
+			local(@oslocal),
+			url("@{fontpath}/@{oslocal}.eot") format("embedded-opentype"),
+			url("@{fontpath}/@{oslocal}.otf") format("opentype"),
+			url("@{fontpath}/@{oslocal}.svg") format("svg"),
+			url("@{fontpath}/@{oslocal}.ttf") format("truetype"),
+			url("@{fontpath}/@{oslocal}.woff") format("woff"),
+			url("@{fontpath}/@{oslocal}.woff2") format("woff2");
+	}
+}
+.face-italic(@value) when(@value = 100){
+	.font('@{fontfamily} Thin Italic'; '@{fontfamilyos}-ThinItalic'; italic; 100);
+}
+.face(@value) when(@value = 100){
+	.font('@{fontfamily} Thin'; '@{fontfamilyos}-Thin'; normal; 100);
+}
+
+.face-italic(@value) when(@value = 200){
+	.font('@{fontfamily} Extra Light Italic'; '@{fontfamilyos}-ExtraLightItalic'; italic; 200);
+}
+.face(@value) when(@value = 200){
+	.font('@{fontfamily} Extra Light'; '@{fontfamilyos}-ExtraLight'; normal; 200);
+}
+.face-italic(@value) when(@value = 300){
+	.font('@{fontfamily} Light Italic'; '@{fontfamilyos}-LightItalic'; italic; 300);
+}
+.face(@value) when(@value = 300){
+	.font('@{fontfamily} Light'; '@{fontfamilyos}-Light'; normal; 300);
+}
+.face-italic(@value) when(@value = 400){
+	.font('@{fontfamily} Italic'; '@{fontfamilyos}-Italic'; italic; 400);
+}
+.face(@value) when(@value = 400){
+	.font('@{fontfamily}'; '@{fontfamilyos}-Regular'; normal; 400);
+}
+.face-italic(@value) when(@value = 500){
+	.font('@{fontfamily} Medium Italic'; '@{fontfamilyos}-MediumItalic'; italic; 500);
+}
+.face(@value) when(@value = 500){
+	.font('@{fontfamily} Medium'; '@{fontfamilyos}-Medium'; normal; 500);
+}
+.face-italic(@value) when(@value = 600){
+	.font('@{fontfamily} Semi Bold Italic'; '@{fontfamilyos}-SemiBoldItalic'; italic; 600);
+}
+.face(@value) when(@value = 600){
+	.font('@{fontfamily} Semi Bold'; '@{fontfamilyos}-SemiBold'; normal; 600);
+}
+.face-italic(@value) when(@value = 700){
+	.font('@{fontfamily} Bold Italic'; '@{fontfamilyos}-BoldItalic'; italic; 700);
+}
+.face(@value) when(@value = 700){
+	.font('@{fontfamily} Bold'; '@{fontfamilyos}-Bold'; normal; 700);
+}
+.face-italic(@value) when(@value = 800){
+	.font('@{fontfamily} Extra Bold Italic'; '@{fontfamilyos}-ExtraBoldItalic'; italic; 800);
+}
+.face(@value) when(@value = 800){
+	.font('@{fontfamily} Extra Bold'; '@{fontfamilyos}-ExtraBold'; normal; 800);
+}
+.face-italic(@value) when(@value = 900){
+	.font('@{fontfamily} Black Italic'; '@{fontfamilyos}-BlackItalic'; italic; 900);
+}
+.face(@value) when(@value = 900){
+	.font('@{fontfamily} Black'; '@{fontfamilyos}-Black'; normal; 900);
+}
+
+.mixweight(@weight; @style){
+	.@{style}-@{weight} {
+		font-weight: @weight;
+		font-style: @style;
+	}
+}

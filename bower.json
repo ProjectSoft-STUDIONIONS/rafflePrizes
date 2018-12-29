@@ -21,7 +21,6 @@
   ],
   "devDependencies": {
     "jquery": "latest",
-    "normalize-css": "normalize.css#>=7.0.0",
     "jquery.forestedglass": "https://github.com/ProjectSoft-STUDIONIONS/jquery.forestedglass.git",
     "exif-js": "https://github.com/jseidelin/exif-js.git",
     "Croppie": "https://github.com/Foliotek/Croppie.git",

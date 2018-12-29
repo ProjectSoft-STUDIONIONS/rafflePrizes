@@ -1,0 +1,14 @@
+@fontfamily: 'Roboto';
+@fontfamilyos: 'Roboto';
+
+@import "mixin";
+
+/*@list: 100, 300, 400, 500, 700, 900;*/
+@list: 400, 700;
+
+.for-each(@value in @list) {
+	.face-italic(@value);
+}
+.for-each(@value in @list) {
+	.face(@value);
+}

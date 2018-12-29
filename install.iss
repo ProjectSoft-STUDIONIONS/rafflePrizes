@@ -36,7 +36,7 @@ InternalCompressLevel=ultra
 
 OutputDir=installer
 OutputBaseFilename=RafflePrizesSetup
-SetupIconFile=src/embed/favicon.ico
+SetupIconFile=src/embed/icon.ico
 WizardImageFile=src/embed/wizard.bmp
 WizardSmallImageFile=src/embed/logo.bmp
 
@@ -93,8 +93,8 @@ Name: {app}\; Type: filesandordirs
 #include AddBackslash(SourcePath) + "parseroption.iss"
 Source: src\dlls\CallbackCtrl.dll; DestDir: {tmp}; Flags: dontcopy
 Source: src\res\RafflePrizes.dll; DestDir: {tmp}; Flags: dontcopy
-#emit ProcessFolder('src\embed', '{app}', False, 'Is64BitInstallMode')
-#emit ProcessFolder('src\embed', '{app}', 'solidbreak', 'not Is64BitInstallMode')
+#emit ProcessFolder('.nwjs\raffleprizes\win64', '{app}', False, 'Is64BitInstallMode')
+#emit ProcessFolder('.nwjs\raffleprizes\win32', '{app}', 'solidbreak', 'not Is64BitInstallMode')
 
 [Code]
 #define A = (Defined UNICODE) ? "W" : "A"
