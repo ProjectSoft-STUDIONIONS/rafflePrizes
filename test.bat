@@ -1,2 +1,2 @@
 @echo off
-start "" /wait  .cache/0.35.3-sdk/win64/nw project/
+start "" /wait  .cache/0.35.4-sdk/win64/nw project/

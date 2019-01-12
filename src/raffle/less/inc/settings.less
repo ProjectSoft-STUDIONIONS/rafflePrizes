@@ -1,0 +1,313 @@
+@-webkit-keyframes tabshow {
+	0% {
+		display: none;
+		opacity: 0;
+		margin-top: 50px;
+	}
+	1% {
+		display: block;
+		opacity: 0;
+		margin-top: 50px;
+	}
+	100% {
+		display: block;
+		opacity: 1;
+		margin-top: 0px;
+	}
+}
+@keyframes tabshow {
+	0% {
+		display: none;
+		opacity: 0;
+		margin-top: 50px;
+	}
+	1% {
+		display: block;
+		opacity: 0;
+		margin-top: 50px;
+	}
+	100% {
+		display: block;
+		opacity: 1;
+		margin-top: 0px;
+	}
+}
+.panel {
+	&__settings {
+		display: block;
+		position: fixed;
+		top: 0px;
+		bottom: 0px;
+		z-index: -40;
+		min-height: 100vh;
+		background-color: rgba(0,0,0,0);
+		border: 1px solid rgba(0,0,0,.35);
+		width: 100%;
+		transition: background-color .5s ease .5s, z-index .5s ease .7s;
+		overflow: hidden;
+		input[type=text],
+		select {
+			border: 1px solid rgb(169, 169, 169);
+			border-radius: 4px;
+		}
+		.panel {
+			position: fixed;
+			top: 0px;
+			bottom: 0px;
+			max-height: 100vh;
+			overflow: hidden;
+			left: 100%;
+			width: 500px;
+			background-color: #fff;
+			box-shadow: 0px 0px 0px 0px transparent;
+			border-top-left-radius: 10px;
+			border-bottom-left-radius: 10px;
+			border: 1px solid #afafaf;
+			padding: 15px;
+			transition: left .5s ease 0s, box-shadow .5s ease .4s;
+			.panel__header {
+				padding-left: 15px;
+				padding-right: 15px;
+				padding-bottom: 15px;
+				padding-top: 0px;
+				margin-left: -15px;
+				margin-right: -15px;
+				display: flex;
+				flex-direction: row;
+				h1 {
+					margin-top: 0px;
+					margin-bottom: 0px;
+					font-size: 20px;
+					flex: 1;
+					width: 100%;
+				}
+				.close {
+					display: block;
+					cursor: pointer;
+				}
+			}
+			&__wrapper {
+				height: ~'calc(100vh - 56px)';
+				overflow: hidden;
+				position: relative;
+				margin-right: -15px;
+				margin-left: -15px;
+				padding-bottom: 15px;
+				.tab {
+					&__panel {
+						padding-left: 15px;
+						padding-right: 15px;
+						ul {
+							display: flex;
+							margin: 0px;
+							flex-direction: row;
+							padding-bottom: 0px;
+							border-bottom: 1px solid buttonface;
+							position: relative;
+							z-index: 1;
+							list-style: none;
+							padding-left: 0px;
+							.userselect(none);
+							li {
+								z-index: 6;
+								margin-bottom: -1px;
+								cursor: pointer;
+								position: relative;
+								border-top-left-radius: 4px;
+								border-top-right-radius: 4px;
+								overflow: auto;
+								-webkit-writing-mode: horizontal-tb !important;
+								> span {
+									display: block;
+									border: 1px solid buttonface;
+									background-color: buttonface;
+									padding: 10px;
+									-webkit-appearance: button;
+									&,
+									&:hover,
+									&:active,
+									&:focus {
+										outline-color: transparent;
+										box-shadow: none;
+									}
+								}
+								&.active {
+									span {
+										-webkit-appearance: none;
+										background-color: #fff;
+										border-bottom: 1px solid #fff;
+									}
+								}
+							}
+						}
+					}
+					&-container {
+						display: none;
+						position: relative;
+						//margin-top: 50px;
+						padding-left: 15px;
+						padding-right: 15px;
+						height:100%;
+						opacity: 0;
+						animation-duration: .25s;
+						animation-timing-function: ease;
+						animation-delay: .1s;
+						animation-iteration-count: 1;
+						animation-fill-mode: both;
+						overflow-y: auto;
+						&.active {
+							display: block;
+							animation-name: tabshow;
+						}
+					}
+				}
+				.blockover {
+					height: ~'calc(100% - 40px)';
+					//padding-right: 15px;
+					//padding-left: 15px;
+					padding-top: 15px;
+					padding-bottom: 15px;
+					background-color: #fff;
+					position: relative;
+					z-index: 4;
+					margin-left: 15px;
+					margin-right: 15px;
+					border-left: 1px solid buttonface;
+					border-bottom: 1px solid buttonface;
+					border-right: 1px solid buttonface;
+					border-bottom-left-radius: 5px;
+					border-bottom-right-radius: 5px;
+					background-color: #fff;
+					fieldset {
+						display: block;
+						border-color: #c7c7c7;
+						border-style: solid;
+						border-width: 1px;
+						border-radius: 4px;
+						position: relative;
+						width: 100%;
+						margin-bottom: 1em;
+						padding-bottom: 1em;
+						padding-top: 1em;
+						&:last-child {
+							margin-bottom: 0px;
+						}
+						hr {
+							margin-top: 1em;
+							margin-bottom: 1em;
+						}
+						legend {
+							.userselect(none);
+							font-weight: 400;
+						}
+					}
+				}
+				.flex-row {
+					font-size: 14px;
+					font-weight: 400;
+					position: relative;
+					> span,
+					> strong {
+						font-weight: 300;
+						flex: 1;
+						align-self: center;
+						width: 100%;
+						display: block;
+						padding-right: 10px;
+						.userselect(none);
+					}
+					button,
+					select,
+					input[type=text]{
+						width: 188px;
+						height: 38px;
+						padding-left: 10px;
+						.userselect(none);
+					}
+					input[type=text] {
+						padding-right: 10px;
+					}
+					input[type=range] {
+						width: 188px;
+					}
+					.img-wrapper {
+						display: block;
+						position: relative;
+						width: 100%;
+						.userselect(none);
+						img {
+							display: block;
+							max-width: 100%;
+							max-height: 425px;
+							margin-left: auto;
+							margin-right: auto;
+							margin-top: 10px;
+							border: 1px solid #afafaf;
+						}
+						.btn-reset {
+							display: none;
+							cursor: pointer;
+							position: absolute;
+							right: 10px;
+							top: 10px;
+							background-color: #fff;
+							border: 1px solid #ccc;
+							border-radius: 50%;
+							padding: 10px;
+						}
+						&.custom {
+							.btn-reset {
+								display: block;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.opensettings {
+	.panel {
+		&__settings {
+			z-index: 40;
+			background-color: transparent;
+			transition: background-color .5s ease 0s, z-index .5s ease 0s;
+			.panel {
+				left: ~'calc(100% - 500px)';
+				box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, .36);
+				transition: left .5s ease .5s, box-shadow .5s ease .5s;
+			}
+		}
+	}
+}
+
+.cp {
+	&-popover {
+		&-container {
+			min-width: 100%;
+		}
+	}
+	&-container {
+		position: absolute;
+		bottom: 106%;
+		padding: 10px;
+		background-color: white;
+		border: 1px solid #afafaf;
+		box-shadow: 0 0 20px rgba(76,76,76,.2);
+		right: 0px;
+	}
+}
+.rafleing {
+	.main {
+		.header {
+			.settings {
+				display: none;
+			}
+		}
+	}
+	.panel {
+		&__settings {
+			display: none;
+		}
+	}
+}

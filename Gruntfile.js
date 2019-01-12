@@ -4,7 +4,7 @@ module.exports = function(grunt){
 		minifyHtml: false,
 		minifyCss: false,
 		dist: 'docs/assets',
-		webfont: 'RafflePrizes'
+		fontVers: '1.0.1'
 	};
 	require('load-grunt-tasks')(grunt);
 	require('time-grunt')(grunt);
@@ -24,7 +24,7 @@ module.exports = function(grunt){
 				'test/',
 				'tests/',
 				'src/raffle/css/bin/',
-				'project/',
+				'project/assets',
 				'installer/',
 				'prejscss/',
 				'.nwjs/'
@@ -32,15 +32,15 @@ module.exports = function(grunt){
 			
 		},
 		imagemin: {
+			options: {
+				optimizationLevel: 3,
+				svgoPlugins: [
+					{
+						removeViewBox: false
+					}
+				]
+			},
 			base: {
-				options: {
-					optimizationLevel: 3,
-					svgoPlugins: [
-						{
-							removeViewBox: false
-						}
-					]
-				},
 				files: [
 					{
 						expand: true,
@@ -51,17 +51,9 @@ module.exports = function(grunt){
 						dest: 'test/images/',
 						filter: 'isFile'
 					}
-				],
+				]
 			},
 			bin: {
-				options: {
-					optimizationLevel: 3,
-					svgoPlugins: [
-						{
-							removeViewBox: false
-						}
-					]
-				},
 				files: [
 					{
 						expand: true,
@@ -73,6 +65,11 @@ module.exports = function(grunt){
 						filter: 'isFile'
 					}
 				],
+			},
+			icon: {
+				files: {
+					'project/favicon.png': 'src/embed/favicon.png'
+				}
 			}
 		},
 		json_generator: {
@@ -81,14 +78,17 @@ module.exports = function(grunt){
 				options: {
 					"app_name": "<%= pkg.name %>",
 					"dependencies": {
-						"deck": "latest"
+						"mime": "^2.4.0",
+						"nw-dialog": "^1.0.7",
+						"underscore": "^1.9.1"
 					},
 					"main": "index.html",
 					"name": "<%= pkg.name %>",
+					"bg-script": 'assets/js/bg.js',
 					"nodejs": true,
 					"version": "<%= pkg.version %>",
 					"webkit": {
-						"plugin": true
+						"plugin": true,
 					},
 					"winIco": "favicon.ico",
 					"window": {
@@ -116,15 +116,16 @@ module.exports = function(grunt){
 		},
 		webfont: {
 			icons: {
-				src: 'src/glyph/*.svg',
-				dest: '<%= globalConfig.template %>/fonts',
+				src: 'src/raffle/glyph/*.svg',
+				dest: 'src/raffle/fonts',
 				options: {
-					hashes: true,
-					relativeFontPath: '<%= globalConfig.template %>/fonts/',
-					destLess: 'src/less/fonts',
-					font: 'natalya',
-					types: 'eot,woff2,woff,ttf',
-					fontFamilyName: 'Natalya Mazaeva',
+					hashes: false,
+					autoHint: false,
+					relativeFontPath: '/assets/fonts/',
+					destLess: 'src/raffle/less/fonts',
+					font: 'raffle',
+					types: 'woff,ttf',
+					fontFamilyName: 'Raffle Prizes',
 					stylesheets: ['less'],
 					syntax: 'bootstrap',
 					execMaxBuffer: 1024 * 400,
@@ -138,7 +139,7 @@ module.exports = function(grunt){
 						classPrefix: 'webicon-'
 					},
 					embed: false,
-					template: 'src/less/font-build.template'
+					template: 'src/raffle/font-build.template'
 				}
 			},
 		},
@@ -177,11 +178,14 @@ module.exports = function(grunt){
 			},
 			appcss: {
 				src: [
+					'prejscss/raffle.css',
 					'prejscss/roboto.css',
 					'bower_components/Croppie/croppie.css',
 					'bower_components/arcticModal/arcticmodal/jquery.arcticmodal.css',
 					'bower_components/arcticModal/arcticmodal/themes/dark.css',
 					'bower_components/fancybox/dist/jquery.fancybox.css',
+					'src/raffle/colorpicker/css/bootstrap.colorpickersliders.min.css',
+					'src/raffle/colorpicker/css/main.css',
 					'prejscss/main.css'
 				],
 				dest: 'prejscss/app.css'
@@ -196,7 +200,11 @@ module.exports = function(grunt){
 					'bower_components/Croppie/croppie.min.js',
 					'bower_components/arcticModal/arcticmodal/jquery.arcticmodal.js',
 					'bower_components/jquery.forestedglass/dist/jquery.forestedglass.js',
+					'src/raffle/colorpicker/tinycolor.js',
+					'src/raffle/colorpicker/bootstrap.colorpickersliders.js',
 					'src/tooltip/tooltip.js',
+					'src/raffle/js/settings.js',
+					'src/raffle/js/app.js',
 					'src/raffle/js/main.js'
 				],
 				dest: 'prejscss/app.js'
@@ -208,7 +216,7 @@ module.exports = function(grunt){
 					compress: false,
 					ieCompat: false,
 					modifyVars: {
-						fontpath: '"assets/fonts"'
+						fontpath: '"/assets/fonts"'
 					},
 					plugins: [
 						new (require('less-plugin-lists'))
@@ -224,7 +232,8 @@ module.exports = function(grunt){
 					ieCompat: false
 				},
 				files: {
-					'prejscss/main.css': 'src/raffle/less/main.less'
+					'prejscss/main.css': 'src/raffle/less/main.less',
+					'prejscss/raffle.css': 'src/raffle/less/fonts/raffle.less',
 				}
 			}
 		},
@@ -276,7 +285,7 @@ module.exports = function(grunt){
 			},
 			minify: {
 				files: {
-					'project/assets/css/app.css' : ['test/css/replace/app.css']
+					'tests/css/inc/app.css' : ['test/css/replace/app.css']
 				}
 			}
 		},
@@ -289,6 +298,9 @@ module.exports = function(grunt){
 				files: {
 					'project/assets/js/app.js': [
 						'prejscss/app.js'
+					],
+					'project/assets/js/bg.js': [
+						'src/raffle/js/bg.js'
 					],
 				}
 			}
@@ -317,8 +329,7 @@ module.exports = function(grunt){
 				expand: true,
 				cwd: 'src/embed',
 				src: [
-					'favicon.ico',
-					'favicon.png',
+					'favicon.ico'
 				],
 				dest: 'project',
 			},
@@ -380,6 +391,7 @@ module.exports = function(grunt){
 			'imagemin',
 			'json_generator',
 			'requirejs',
+			'webfont',
 			'less',
 			'concat',
 			'autoprefixer',
@@ -392,8 +404,46 @@ module.exports = function(grunt){
 			'nwjs',
 			'exec',
 			'notify:cancel'
+		],
+		build: [
+			'notify:start',
+			'jshint',
+			'clean',
+			'imagemin',
+			'json_generator',
+			'requirejs',
+			'webfont',
+			'less',
+			'concat',
+			'autoprefixer',
+			'group_css_media_queries',
+			'replace',
+			'cssmin',
+			'uglify',
+			'pug',
+			'copy',
+			'nwjs',
+			'exec:win32',
+			'exec:win64',
+			//'exec:test',
+			'notify:cancel'
+		],
+		test: [
+			'jshint',
+			'json_generator',
+			'less',
+			'concat',
+			'autoprefixer',
+			'group_css_media_queries',
+			'replace',
+			'cssmin',
+			'uglify',
+			'pug',
+			'copy',
+			'exec:test',
 		]
 	};
 	grunt.registerTask('default',tasks.default);
-	grunt.registerTask('dev', tasks.default);
+	grunt.registerTask('build', tasks.build);
+	grunt.registerTask('dev', tasks.test);
 };

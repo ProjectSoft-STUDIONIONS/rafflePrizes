@@ -1,0 +1,17 @@
+.cp-popover-container {
+	position: absolute;
+	z-index:2000;
+	background-color: #fff;
+	border-radius: 4px;
+	box-shadow: 0 0 2px #000;
+}
+.cp-container .cp-pills.hidden,
+.cp-popover-container .hidden {
+	display: none !important;
+}
+.rgbcolor .addon {
+	position: relative;
+}
+.rgbcolor .addon {
+	max-width: 215px;
+}

@@ -1,3 +1,6 @@
+.userselect(@val){
+	user-select: @val;
+}
 * {
 	&,
 	&:before,
@@ -5,10 +8,31 @@
 		box-sizing: border-box;
 	}
 }
+img {
+	border: none;
+	max-width: 100%;
+}
 html,
 body {
 	padding: 0;
 	margin: 0;
 	font-family: 'Roboto', sans-serif;
 	font-size: 16px;
+	font-weight: 300;
 }
+body {
+	min-height: 100vh;
+}
+h1, h2, h3, h4, h5, h6, b, strong {
+	font-weight: 400;
+}
+input[type=button],
+input[type=submit],
+input[type=reset],
+input[type=file],
+button {
+	cursor: pointer;
+}
+@import "mixin/mixin";
+@import "inc/main";
+@import "inc/settings";
