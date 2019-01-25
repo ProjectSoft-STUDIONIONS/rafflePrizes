@@ -4,6 +4,7 @@
 #define InstallText 'Удалить'
 #define GitHub 'https://github.com/ProjectSoft-STUDIONIONS/rafflePrizes'
 #define DirName 'RafflePrizes'
+#define AppNameDir 'raffleprizes'
 [Setup]
 AppId={{E71B86C4-BF18-420C-89E2-68F1546C59B7}
 AppName={#AppName}
@@ -78,8 +79,8 @@ Name: russian; MessagesFile: compiler:Languages\Russian.isl
 [Messages]
 AboutSetupMenuItem=&© ProjectSoft 2018
 [Icons]
-;Name: {group}\{#AppName}; Filename: {app}\raffleprizes.exe
-;Name: {group}\Удалить {#AppName}; Filename: {uninstallexe}
+Name: {group}\{#AppName}; Filename: {app}\raffleprizes.exe
+Name: {group}\Удалить {#AppName}; Filename: {uninstallexe}
 
 [Dirs]
 Name: {app}\locales
@@ -93,8 +94,8 @@ Name: {app}\; Type: filesandordirs
 #include AddBackslash(SourcePath) + "parseroption.iss"
 Source: src\dlls\CallbackCtrl.dll; DestDir: {tmp}; Flags: dontcopy
 Source: src\res\RafflePrizes.dll; DestDir: {tmp}; Flags: dontcopy
-#emit ProcessFolder('.nwjs\raffleprizes\win64', '{app}', False, 'Is64BitInstallMode')
-#emit ProcessFolder('.nwjs\raffleprizes\win32', '{app}', 'solidbreak', 'not Is64BitInstallMode')
+#emit ProcessFolder('.nwjs\' + AppNameDir + '\win64', '{app}', False, 'Is64BitInstallMode')
+#emit ProcessFolder('.nwjs\' + AppNameDir + '\win32', '{app}', 'solidbreak', 'not Is64BitInstallMode')
 
 [Code]
 #define A = (Defined UNICODE) ? "W" : "A"

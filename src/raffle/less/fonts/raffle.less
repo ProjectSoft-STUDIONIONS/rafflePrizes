@@ -1,28 +1,42 @@
-@webicon-basket: "\e900";
-@webicon-begin: "\e901";
-@webicon-burger: "\e902";
-@webicon-check: "\e903";
-@webicon-circle-close: "\e904";
-@webicon-close: "\e905";
-@webicon-desktop: "\e906";
-@webicon-dislike: "\e907";
-@webicon-down: "\e908";
-@webicon-download: "\e909";
-@webicon-end: "\e90a";
-@webicon-error: "\e90b";
-@webicon-eye: "\e90c";
-@webicon-like: "\e90d";
-@webicon-menudot: "\e90e";
-@webicon-mobile: "\e90f";
-@webicon-next: "\e910";
-@webicon-prev: "\e911";
-@webicon-search: "\e912";
-@webicon-settings: "\e913";
-@webicon-success: "\e914";
-@webicon-up: "\e915";
-@webicon-user: "\e916";
-@webicon-zoom-in: "\e917";
-@webicon-zoom-out: "\e918";
+@webicon-add: "\e900";
+@webicon-basket: "\e901";
+@webicon-begin: "\e902";
+@webicon-burger: "\e903";
+@webicon-check-circle: "\e904";
+@webicon-check: "\e905";
+@webicon-circle-close: "\e906";
+@webicon-clear: "\e907";
+@webicon-close: "\e908";
+@webicon-desktop: "\e909";
+@webicon-dislike: "\e90a";
+@webicon-down: "\e90b";
+@webicon-download: "\e90c";
+@webicon-edit: "\e90d";
+@webicon-end: "\e90e";
+@webicon-error: "\e90f";
+@webicon-eye: "\e910";
+@webicon-image: "\e911";
+@webicon-like: "\e912";
+@webicon-link: "\e913";
+@webicon-menudot: "\e914";
+@webicon-mobile: "\e915";
+@webicon-next: "\e916";
+@webicon-pause: "\e917";
+@webicon-picture: "\e918";
+@webicon-play: "\e919";
+@webicon-prev: "\e91a";
+@webicon-print: "\e91b";
+@webicon-raffle: "\e91c";
+@webicon-reload: "\e91d";
+@webicon-remove: "\e91e";
+@webicon-search: "\e91f";
+@webicon-settings: "\e920";
+@webicon-sortable: "\e921";
+@webicon-success: "\e922";
+@webicon-up: "\e923";
+@webicon-user: "\e924";
+@webicon-zoom-in: "\e925";
+@webicon-zoom-out: "\e926";
 
 @font-face {
 	font-family:"Raffle Prizes";
@@ -30,6 +44,7 @@
 		url("/assets/fonts/raffle.ttf") format("truetype");
 	font-weight:normal;
 	font-style:normal;
+	font-display: swap;
 }
 
 [class^="webicon-"]:before,
@@ -46,6 +61,11 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.webicon-add {
+	&:before {
+		content: @webicon-add;
+	}
+}
 .webicon-basket {
 	&:before {
 		content: @webicon-basket;
@@ -61,6 +81,11 @@
 		content: @webicon-burger;
 	}
 }
+.webicon-check-circle {
+	&:before {
+		content: @webicon-check-circle;
+	}
+}
 .webicon-check {
 	&:before {
 		content: @webicon-check;
@@ -69,6 +94,11 @@
 .webicon-circle-close {
 	&:before {
 		content: @webicon-circle-close;
+	}
+}
+.webicon-clear {
+	&:before {
+		content: @webicon-clear;
 	}
 }
 .webicon-close {
@@ -96,6 +126,11 @@
 		content: @webicon-download;
 	}
 }
+.webicon-edit {
+	&:before {
+		content: @webicon-edit;
+	}
+}
 .webicon-end {
 	&:before {
 		content: @webicon-end;
@@ -111,9 +146,19 @@
 		content: @webicon-eye;
 	}
 }
+.webicon-image {
+	&:before {
+		content: @webicon-image;
+	}
+}
 .webicon-like {
 	&:before {
 		content: @webicon-like;
+	}
+}
+.webicon-link {
+	&:before {
+		content: @webicon-link;
 	}
 }
 .webicon-menudot {
@@ -131,9 +176,44 @@
 		content: @webicon-next;
 	}
 }
+.webicon-pause {
+	&:before {
+		content: @webicon-pause;
+	}
+}
+.webicon-picture {
+	&:before {
+		content: @webicon-picture;
+	}
+}
+.webicon-play {
+	&:before {
+		content: @webicon-play;
+	}
+}
 .webicon-prev {
 	&:before {
 		content: @webicon-prev;
+	}
+}
+.webicon-print {
+	&:before {
+		content: @webicon-print;
+	}
+}
+.webicon-raffle {
+	&:before {
+		content: @webicon-raffle;
+	}
+}
+.webicon-reload {
+	&:before {
+		content: @webicon-reload;
+	}
+}
+.webicon-remove {
+	&:before {
+		content: @webicon-remove;
 	}
 }
 .webicon-search {
@@ -144,6 +224,11 @@
 .webicon-settings {
 	&:before {
 		content: @webicon-settings;
+	}
+}
+.webicon-sortable {
+	&:before {
+		content: @webicon-sortable;
 	}
 }
 .webicon-success {

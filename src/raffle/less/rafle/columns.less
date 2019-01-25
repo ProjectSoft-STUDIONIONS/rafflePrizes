@@ -1,0 +1,69 @@
+header.header,
+footer.footer,
+.columns-settings-label > h2,
+.resultraffle > h2,
+.panel__header,
+button,
+input[type=button],
+#bloorColor,
+#hfBgColor,
+#hfTextColor,
+.page-title {
+	.unselect(none);
+}
+.columns {
+	display: flex;
+	flex-direction: column-reverse;
+	&-settings,
+	&-loto {
+		width: 100%;
+	}
+	&-settings,
+	&-loto,
+	&-settings-label{
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	&-settings {
+		&-label {
+			display: block;
+			margin-bottom: 12px;
+			strong {
+				.unselect(none);
+			}
+			&-number {
+				margin-left: auto;
+				margin-right: auto;
+				margin-top: 20px;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: center;
+				@media (max-width: 510px) {
+					flex-direction: column;
+					text-align: center;
+				}
+			}
+			&-buttons {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-end;
+			}
+			> input {
+				margin-top: 5px;
+				width: 100%;
+			}
+		}
+	}
+	&.resultraffle {
+		flex-direction: column;
+		table {
+			border: unset;
+			margin: 0px;
+			padding: 0px;
+			width: 100%;
+			min-width: 100%;
+		}
+	}
+}

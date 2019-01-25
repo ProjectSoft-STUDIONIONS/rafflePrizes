@@ -1,0 +1,132 @@
+.loto {
+	display: block;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+}
+#loto {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	border: 1px solid #ccc;
+	&:empty {
+		border: unset;
+	}
+	> span {
+		position: relative;
+		overflow: hidden;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #fff;
+		text-align: center;
+		width: 10%;
+		min-height: 40px;
+		box-shadow: 0px 0px 3px #ccc;
+		transition: all .2s ease;
+		color: #333333;
+		&:before {
+			content: attr(data-number);
+			position: absolute;
+			top: 50%;
+			margin-top: -8px;
+			font-weight: 500;
+		}
+		&:after {
+			content: "";
+			display: block;
+			padding-bottom: 100%;
+		}
+		&.pre-active {
+			background-color: #05ad02;
+		}
+		&.pre-active,
+		&.active {
+			color: #fff;
+		}
+		&.active {
+			position: relative;
+			background-color: #ff002f;
+			box-shadow: 0px 0px 0px 1px #fff;
+			animation: RaffleSetActive 1s linear 0s 1;
+			transform-origin: 50% 50%;
+			z-index:1;
+			> span {
+				position: absolute;
+				display: block;
+				top: 3px;
+				left: 3px;
+				&:before {
+					font-family: 'Raffle Prizes' !important;
+					speak: none;
+					font-style: normal;
+					font-weight: normal;
+					-webkit-font-smoothing: antialiased;
+					-moz-osx-font-smoothing: grayscale;
+					content: "\e905";
+				}
+			}
+		}
+	}
+}
+.loto {
+	&-raffle {
+		margin-top: 15px;
+		.text-center();
+	}
+}
+.end {
+	#loto {
+		> span {
+			&.active {
+				animation: none;
+			}
+		}
+	}
+}
+.reload {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	.text-center();
+	a {
+		text-decoration: none !important;
+		outline-color: transparent !important;
+		&.reload,
+		&.print {
+			&-link {
+				display: inline-block;
+				color: #ff0085;
+				margin-bottom: 17px;
+				padding: 5px;
+				border: 3px solid #ff0085 !important;
+				&:hover {
+					color: #ff002f;
+					box-shadow: 0 0 11px rgba(255, 255, 255, .8);
+					border: 3px solid #ff002f !important;
+				}
+			}
+		}
+	}
+}
+@keyframes RaffleSetActive {
+	0% {
+		background-color: #fff;
+		color: #000;
+		transform: scale(1);
+		z-index:300;
+	}
+	50% {
+		transform: scale(3);
+		background-color: #ff002f;
+		color: #fff;
+		z-index:300;
+	}
+	100% {
+		transform: scale(1);
+		color: #fff;
+		background-color: #ff002f;
+		z-index:300;
+	}
+}

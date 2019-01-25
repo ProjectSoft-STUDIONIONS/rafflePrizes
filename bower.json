@@ -26,7 +26,8 @@
     "Croppie": "https://github.com/Foliotek/Croppie.git",
     "fancybox": "https://github.com/fancyapps/fancybox.git",
     "jquery.cookie": "https://github.com/carhartl/jquery-cookie.git",
-    "jquery-ui": "https://github.com/components/jqueryui.git#^1.12.1"
+    "jquery-ui": "https://github.com/components/jqueryui.git#^1.12.1",
+    "arcticModal": "https://github.com/ProjectSoft-STUDIONIONS/arcticModal.git"
   },
   "dependencies": {}
 }

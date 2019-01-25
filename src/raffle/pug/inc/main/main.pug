@@ -1,0 +1,50 @@
+#lotereya
+	.row
+		h1.page-title.text-center.print-hidden(data-i18n="H1_TITLE")
+			|&nbsp;
+		.columns.print-hidden
+			.columns-settings
+				label.columns-settings-label.columns-settings-label-number
+					strong(data-i18n="NUMBER_TITLE")
+						|&nbsp;
+					.inputnumber
+						.inputnumber-spin-wrapper
+							.inputnumber-spin.up(tabindex="-1")
+								|+
+							.inputnumber-spin.down(tabindex="-1")
+								|−
+						input#sizenum(type="number" min="1" max="100" value="1" tabindex="-1")
+				
+		.columns-loto.print-hidden
+			.loto
+				#loto
+				.loto-raffle
+					button.btn.webicon-raffle#btnraffle(data-i18n-title="BTN_RAFFLE_TITLE" tabindex="-1")
+		.columns-settings-label.print-hidden
+			h2.text-center.block-center(data-i18n="PLAYED_TITLE")
+				|&nbsp;
+			include artictemplate
+			.columns-settings-label-prizes
+				- var n = 1;
+				ul#prizes
+				
+				//-
+					while n < 51
+						- var t = n++
+						li.prize(data-number= t)
+							span.bg
+							span.text
+								|Name prize 
+								= t
+								=";"
+			.columns-settings-label-buttons
+				button.btn.webicon-add#btnadd(data-i18n-title="BTN_ADD_TITLE" tabindex="-1")
+				button.btn.webicon-raffle#btnstitch(data-i18n-title="BTN_PRIZERAFLE_TITLE" tabindex="-1")
+				button.btn.webicon-clear#btnclear(data-i18n-title="BTN_CLEAR_TITLE" tabindex="-1")
+				button.btn.webicon-clear#btnexport(data-i18n-title="BTN_CLEAR_TITLE" tabindex="-1" style="display: none !important;")
+				button.btn.webicon-add#btnimport(data-i18n-title="BTN_CLEAR_TITLE" tabindex="-1" style="display: none !important;")
+		.columns.resultraffle
+			h2.text-center.block-center.full.date(data-i18n="PLAYED_RESULT")
+				|&nbsp;
+			.columns-result.full
+				ul#result

@@ -4,7 +4,77 @@ module.exports = function(grunt){
 		minifyHtml: false,
 		minifyCss: false,
 		dist: 'docs/assets',
-		fontVers: '1.0.1'
+		fontVers: '1.0.1',
+		sdk: "normal",//"normal" "sdk"
+		version: "0.35.5"
+	};
+	var tasks = {
+		default: [
+			'notify:start',
+			'jshint',
+			'clean',
+			'webfont',
+			'imagemin',
+			'json_generator',
+			'requirejs',
+			'less',
+			'concat',
+			'autoprefixer',
+			'group_css_media_queries',
+			'replace',
+			'cssmin',
+			'uglify',
+			'pug',
+			'copy',
+			'nwjs',
+			'exec',
+			'notify:cancel'
+		],
+		build: [
+			'notify:start',
+			'jshint',
+			'clean',
+			'webfont',
+			'imagemin',
+			'json_generator',
+			'requirejs',
+			'less',
+			'concat',
+			'autoprefixer',
+			'group_css_media_queries',
+			'replace',
+			'cssmin',
+			'uglify',
+			'pug',
+			'copy',
+			'nwjs',
+			'exec:win32',
+			'exec:win64',
+			'notify:cancel'
+		],
+		test: [
+			'notify:start',
+			'jshint',
+			'clean',
+			'webfont',
+			'imagemin',
+			'json_generator',
+			'requirejs',
+			'less',
+			'concat',
+			'autoprefixer',
+			'group_css_media_queries',
+			'replace',
+			'cssmin',
+			'uglify',
+			'pug',
+			'copy',
+			'exec:test',
+			'notify:cancel'
+		],
+		dev: [
+			'watch'
+		]
 	};
 	require('load-grunt-tasks')(grunt);
 	require('time-grunt')(grunt);
@@ -13,7 +83,15 @@ module.exports = function(grunt){
 		pkg : grunt.file.readJSON('package.json'),
 		jshint: {
 			src: [
-				'src/raffle/js/*.js'
+				/*'src/raffle/js/bg.js',
+				'src/raffle/js/app.js',
+				'src/raffle/js/settings.js',
+				'src/raffle/js/main.js',
+				'project/module/helper.js',
+				'project/module/audioplaylist.js',
+				'project/module/uniqid.js'*/
+				'src/raffle/js/rafle.js',
+				//'src/raffle/js/.js'
 			],
 		},
 		clean: {
@@ -76,16 +154,22 @@ module.exports = function(grunt){
 			nwjs: {
 				dest: "project/package.json",
 				options: {
-					"app_name": "<%= pkg.name %>",
+					"app_name": "<%= pkg.name %>-projectsoft",
 					"dependencies": {
+						"component-emitter": "^1.2.1",
+						"dateformat": "^3.0.3",
+						"jsmediatags": "^3.8.1",
 						"mime": "^2.4.0",
 						"nw-dialog": "^1.0.7",
+						"rimraf": "^2.6.3",
 						"underscore": "^1.9.1"
 					},
+					//"node-main": "assets/js/bg.js",
 					"main": "index.html",
 					"name": "<%= pkg.name %>",
-					"bg-script": 'assets/js/bg.js',
+					//"bg-script": 'assets/js/bg.js',
 					"nodejs": true,
+					//"chromium-args": "--enable-logging=stderr --load-extension='RecordRTC'",
 					"version": "<%= pkg.version %>",
 					"webkit": {
 						"plugin": true,
@@ -96,7 +180,7 @@ module.exports = function(grunt){
 						"frame": true,
 						"height": 400,
 						"icon": "favicon.png",
-						"id": "<%= pkg.name %>",
+						"id": "<%= pkg.name %>-projectsoft",
 						"kiosk_emulation": true,
 						"mac_icon": "favicon.png",
 						"min_height": 400,
@@ -110,11 +194,38 @@ module.exports = function(grunt){
 						"visible_on_all_workspaces": true,
 						"width": 800
 					},
-					"zip": true
+					"zip": false
 				}
 			}
 		},
 		webfont: {
+			vars: {
+				src: 'src/raffle/glyph/*.svg',
+				dest: 'src/raffle/fonts',
+				options: {
+					hashes: false,
+					autoHint: false,
+					relativeFontPath: '/assets/fonts/',
+					destLess: 'src/raffle/less',
+					font: 'variables',
+					types: 'woff,ttf',
+					fontFamilyName: 'Raffle Prizes',
+					stylesheets: ['less'],
+					syntax: 'bootstrap',
+					execMaxBuffer: 1024 * 400,
+					htmlDemo: false,
+					version: gc.fontVers,
+					normalize: true,
+					startCodepoint: 0xE900,
+					iconsStyles: false,
+					templateOptions: {
+						baseClass: '',
+						classPrefix: 'webicon-'
+					},
+					embed: false,
+					template: 'src/raffle/variables.template'
+				}
+			},
 			icons: {
 				src: 'src/raffle/glyph/*.svg',
 				dest: 'src/raffle/fonts',
@@ -192,6 +303,7 @@ module.exports = function(grunt){
 			},
 			appjs: {
 				src: [
+					'src/raffle/js/required.js',
 					'bower_components/jquery/dist/jquery.js',
 					'prejscss/jquery.ui.js',
 					'bower_components/jquery.cookie/jquery.cookie.js',
@@ -203,11 +315,15 @@ module.exports = function(grunt){
 					'src/raffle/colorpicker/tinycolor.js',
 					'src/raffle/colorpicker/bootstrap.colorpickersliders.js',
 					'src/tooltip/tooltip.js',
+					//'src/raffle/js/devices.js',
+					'src/raffle/js/audiosettings.js',
 					'src/raffle/js/settings.js',
 					'src/raffle/js/app.js',
+					'src/raffle/js/number.jquery.js',
+					'src/raffle/js/rafle.js',
 					'src/raffle/js/main.js'
 				],
-				dest: 'prejscss/app.js'
+				dest: "project/assets/js/app.js"//'prejscss/app.js'
 			}
 		},
 		less: {
@@ -217,10 +333,7 @@ module.exports = function(grunt){
 					ieCompat: false,
 					modifyVars: {
 						fontpath: '"/assets/fonts"'
-					},
-					plugins: [
-						new (require('less-plugin-lists'))
-					],
+					}
 				},
 				files: {
 					'prejscss/roboto.css': 'src/raffle/roboto/fontface.less'
@@ -285,7 +398,8 @@ module.exports = function(grunt){
 			},
 			minify: {
 				files: {
-					'tests/css/inc/app.css' : ['test/css/replace/app.css']
+					'tests/css/inc/app.css' : ['test/css/replace/app.css'],
+					'project/assets/css/app.css' : ['test/css/replace/app.css']
 				}
 			}
 		},
@@ -296,9 +410,9 @@ module.exports = function(grunt){
 			},
 			main: {
 				files: {
-					'project/assets/js/app.js': [
+					/*'project/assets/js/app.js': [
 						'prejscss/app.js'
-					],
+					],*/
 					'project/assets/js/bg.js': [
 						'src/raffle/js/bg.js'
 					],
@@ -321,7 +435,12 @@ module.exports = function(grunt){
 				expand: true,
 				cwd: 'src/raffle/fonts',
 				src: [
-					'**.*'
+					'**.ttf',
+					'**.otf',
+					'**.eot',
+					'**.svg',
+					'**.woff',
+					'**.woff2'
 				],
 				dest: 'project/assets/fonts/',
 			},
@@ -340,30 +459,61 @@ module.exports = function(grunt){
 					'**.*',
 				],
 				dest: 'project/assets/images/',
+			},
+			assets: {
+				expand: true,
+				cwd: 'src/raffle/user',
+				src: "**",
+				dest: 'project/assets/user/',
+			},
+			module: {
+				expand: true,
+				cwd: 'src/raffle/module',
+				src: [
+					'**',
+				],
+				dest: 'project/module/',
+			},
+			record: {
+				expand: true,
+				cwd: 'src/RecordRTC',
+				src: [
+					'**',
+				],
+				dest: 'project/RecordRTC/',
 			}
 		},
 		nwjs: {
 			options: {
 				platforms: ['win'],
 				buildDir: __dirname+'/.nwjs',
-				//flavor: 'normal',
-				//version: '0.35.2',
+				flavor: gc.sdk,
+				//version: gc.version,
 				cacheDir: __dirname+'/.cache'
 			},
 			src: [__dirname+'/project/**/*']
 		},
 		exec: {
 			win32: {
-				cmd: "win32.bat"
+				cmd: 'start "" /wait ResourceHacker -open .nwjs/<%= pkg.name %>/win32/<%= pkg.name %>.exe -save .nwjs/<%= pkg.name %>/win32/<%= pkg.name %>.exe -action addoverwrite -res project/favicon.ico -mask ICONGROUP,IDR_MAINFRAME,'
 			},
 			win64: {
-				cmd: "win64.bat"
+				cmd: 'start "" /wait ResourceHacker -open .nwjs/<%= pkg.name %>/win64/<%= pkg.name %>.exe -save .nwjs/<%= pkg.name %>/win64/<%= pkg.name %>.exe -action addoverwrite -res project/favicon.ico -mask ICONGROUP,IDR_MAINFRAME,'
 			},
 			test: {
-				cmd: "test.bat"
+				cmd: 'start "" /wait  .cache/' + gc.version + '-' + gc.sdk + '/win64/nw project/'
 			},
 			install: {
-				cmd: "install.bat"
+				cmd: 'iscc install.iss'
+			}
+		},
+		// Изменения файлов
+		watch: {
+			dev : {
+				files: [
+					'src/raffle/**/*',
+				],
+				tasks: tasks.test
 			}
 		},
 		notify: {
@@ -383,67 +533,8 @@ module.exports = function(grunt){
 			}
 		},
 	});
-	var tasks = {
-		default: [
-			'notify:start',
-			'jshint',
-			'clean',
-			'imagemin',
-			'json_generator',
-			'requirejs',
-			'webfont',
-			'less',
-			'concat',
-			'autoprefixer',
-			'group_css_media_queries',
-			'replace',
-			'cssmin',
-			'uglify',
-			'pug',
-			'copy',
-			'nwjs',
-			'exec',
-			'notify:cancel'
-		],
-		build: [
-			'notify:start',
-			'jshint',
-			'clean',
-			'imagemin',
-			'json_generator',
-			'requirejs',
-			'webfont',
-			'less',
-			'concat',
-			'autoprefixer',
-			'group_css_media_queries',
-			'replace',
-			'cssmin',
-			'uglify',
-			'pug',
-			'copy',
-			'nwjs',
-			'exec:win32',
-			'exec:win64',
-			//'exec:test',
-			'notify:cancel'
-		],
-		test: [
-			'jshint',
-			'json_generator',
-			'less',
-			'concat',
-			'autoprefixer',
-			'group_css_media_queries',
-			'replace',
-			'cssmin',
-			'uglify',
-			'pug',
-			'copy',
-			'exec:test',
-		]
-	};
 	grunt.registerTask('default',tasks.default);
 	grunt.registerTask('build', tasks.build);
-	grunt.registerTask('dev', tasks.test);
+	grunt.registerTask('test', tasks.test);
+	grunt.registerTask('dev', tasks.dev);
 };

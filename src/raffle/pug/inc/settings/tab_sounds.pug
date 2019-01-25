@@ -1,0 +1,31 @@
+section#tab2.tab-container
+	fieldset
+		legend Звук
+		.flex-row.backgroundSounds
+			div
+				label
+					input#playingSound(type="checkbox")
+					| Воспроизводить треки во время розыгрыша
+	fieldset
+		legend Источник треков
+		.flex-row.selectSounds
+			span
+				|Источник треков
+			div
+				label
+					input.soundsCheck(name="sound_dest" value="0" type="radio")
+					| Установленные
+				br
+				label
+					input.soundsCheck(name="sound_dest" value="1" type="radio")
+					| Пользовательские
+		.sound__sources
+			ul#sound_sources
+				li
+					span.webicon-play.btnspan
+					span.source-title
+						|Седая ночь
+			.controls.hidden
+				button#addSounds.webicon-add(type="button")
+				button#removeSounds.webicon-clear(type="button")
+				
