@@ -37,7 +37,7 @@ InternalCompressLevel=ultra
 
 OutputDir=installer
 OutputBaseFilename=RafflePrizesSetup
-SetupIconFile=src/embed/icon.ico
+SetupIconFile=project/favicon.ico
 WizardImageFile=src/embed/wizard.bmp
 WizardSmallImageFile=src/embed/logo.bmp
 

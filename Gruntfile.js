@@ -131,6 +131,19 @@ module.exports = function(grunt){
 					}
 				]
 			},
+			user: {
+				files: [
+					{
+						expand: true,
+						flatten : true,
+						src: [
+							'src/raffle/user/bg/*.{png,jpg}'
+						],
+						dest: 'project/assets/user/bg/',
+						filter: 'isFile'
+					}
+				]
+			},
 			bin: {
 				files: [
 					{
