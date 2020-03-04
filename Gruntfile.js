@@ -6,7 +6,7 @@ module.exports = function(grunt){
 		dist: 'docs/assets',
 		fontVers: '1.0.1',
 		sdk: "sdk",//"normal" "sdk"
-		version: "0.36.0"
+		version: "0.44.3"
 	};
 	var tasks = {
 		default: [
@@ -56,10 +56,10 @@ module.exports = function(grunt){
 			'nwjs',
 			'exec:win32',
 			'exec:win64',
-			'exec:win32dll',
-			'exec:win64dll',
-			'exec:win32del',
-			'exec:win64del',
+			//'exec:win32dll',
+			//'exec:win64dll',
+			//'exec:win32del',
+			//'exec:win64del',
 			'notify:cancel'
 		],
 		test: [
@@ -539,7 +539,7 @@ module.exports = function(grunt){
 				platforms: ['win'],
 				buildDir: __dirname+'/.nwjs',
 				flavor: gc.sdk,
-				//version: gc.version,
+				version: gc.version,
 				cacheDir: __dirname+'/.cache',
 				zip: false,
 				
@@ -553,7 +553,7 @@ module.exports = function(grunt){
 			win64: {
 				cmd: 'start "" /wait ResourceHacker -open .nwjs/<%= pkg.name %>/win64/<%= pkg.name %>.exe -save .nwjs/<%= pkg.name %>/win64/<%= pkg.name %>.exe -action addoverwrite -res project/favicon.ico -mask ICONGROUP,IDR_MAINFRAME,'
 			},
-			win32dll: {
+			/*win32dll: {
 				cmd: 'start "" /wait ResourceHacker -open .nwjs/<%= pkg.name %>/win32/nw.dll -save .nwjs/<%= pkg.name %>/win32/nw.dll -action addoverwrite -res project/dll.ico -mask ICONGROUP,101,'
 			},
 			win64dll: {
@@ -564,7 +564,7 @@ module.exports = function(grunt){
 			},
 			win64del: {
 				cmd: 'del .nwjs\\<%= pkg.name %>\\win64\\dll.ico'
-			},
+			},*/
 			test: {
 				cmd: 'start "" /wait  .cache/' + gc.version + '-' + gc.sdk + '/win64/nw project/'
 			},

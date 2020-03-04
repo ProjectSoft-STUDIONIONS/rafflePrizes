@@ -5,6 +5,7 @@ installer/**/*
 project/**/*
 prejscss/**/*
 nw/**/*
+temp/**/*
 RecordRTC
 node_modules/**/*
 bower_components/**/*
