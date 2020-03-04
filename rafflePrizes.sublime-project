@@ -1,0 +1,26 @@
+{
+	"folders":
+	[
+		{
+			"name": "Генератор розыгрыша призов",
+			"path": ".",
+			"folder_exclude_patterns": [
+				".nwjs",
+				".git",
+				".cache",
+				"cache",
+				"docs",
+				"prejscss",
+				"bower_components",
+				"node_modules",
+				"tests",
+				"test",
+				"installer",
+				"temp"
+			],
+			"file_exclude_patterns": [
+				"*.sublime-workspace"
+			]
+		}
+	]
+}

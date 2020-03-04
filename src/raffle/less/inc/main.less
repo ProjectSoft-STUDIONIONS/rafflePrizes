@@ -64,11 +64,25 @@
 		padding-top: 10px;
 		padding-bottom: 10px;
 		.settings {
-			display: block;
+			align-items: center;
+			display: flex;
 			float: right;
-			cursor: pointer;
-			.webicon-settings:before {
-				font-size: 20px;
+			.webicon-settings{
+				cursor: pointer;
+				&:before {
+					font-size: 20px;
+				}
+			}
+			button#recordBtn {
+				margin-right: 30px;
+				width: 20px;
+				height: 20px;
+				&:before {
+					font-size: 8px;
+					padding: 5px;
+					width: 20px;
+					height: 20px;
+				}
 			}
 		}
 		h1 {

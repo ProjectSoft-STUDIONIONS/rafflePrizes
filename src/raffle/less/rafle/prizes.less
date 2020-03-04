@@ -143,7 +143,15 @@ li.prize {
 		}
 	}
 }
+#prizes:empty:before {
+	display:block;
+	content: "Нет призов для розыгрыша";
+	text-align: center;
+}
 .raffleing {
+	#prizes:empty:before {
+		display:none;
+	}
 	ul.ui-sortable, ul {
 		li {
 			&.prize {

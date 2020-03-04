@@ -1,6 +1,10 @@
 /* jshint esversion: 7 */
 /* jslint expr: true */
 
+var mediaRecorder;
+var audioChunks = [];
+var isRecording = false;
+
 window.userInfo = os.userInfo();
 window.aus = null;
 window.isLoop = false;
@@ -57,12 +61,14 @@ var home = userInfo.homedir + '/AppData/Roaming/RafflePrize',
 	styleJson = homedir + '/style.json',
 	soundsDir = homedir + '/user/sound',
 	bgDir = homedir + '/user/background',
+	tempDir = homedir + '/user/temp',
 	options = $.extend({}, defaultOptions),
 	rafleing = false,
 	load = false;
 
 fs.mkdirSync(soundsDir, {recursive : true});
 fs.mkdirSync(bgDir, {recursive : true});
+fs.mkdirSync(tempDir, {recursive : true});
 
 function hideNotify(done) {
 	chrome.notifications.clear(notificationId, function() {
@@ -291,6 +297,10 @@ function setStyleOptions(content){
 					styleSheetWriter.setRule('.main', 'color', options.background.textcolor);
 					
 				break;
+			case "video":
+				if(!load){
+					$("#isOptimized").prop("checked", options.video.isOptimized);
+				}
 			case "print":
 				if(!load){
 					$('input#printDate').prop('checked', options.print.showDate);
@@ -535,7 +545,7 @@ $(document).ready(function(){
 	});
 	dlg.setContext(document);
 	// Open / Close Panel Settings
-	$('.header .settings').on('click', function(e){
+	$('.header .webicon-settings').on('click', function(e){
 		e.preventDefault();
 		if(!rafleing){
 			$('body').toggleClass('opensettings');
@@ -836,11 +846,240 @@ $(document).ready(function(){
 		return !1;
 	});
 	
+	$('#recordBtn').on('click', function(e){
+		e.preventDefault();
+		if(mediaRecorder){
+			stopRecordScreen();
+		}else{
+			startRecordScreen();
+		}
+		return !1;
+	});
+	$("#isOptimized").on('change', function(e){
+		e.preventDefault();
+		options.video.isOptimized = $(this).is(":checked");
+		setStyleOptions(helper.pack(options));
+		return !1;
+	});
 	setTimeout(readBodySettings, 2000);
-	
+	getVideoList();
+	/*$("#video_files").on('click', 'li', function(e){
+		var $this = $(e.target),
+			item = $this.data();
+		DiskStorage.Fetch(item.name, function(file) {
+			onGettingFile(file, item);
+		});
+	});*/
 	//gui.Window.get().showDevTools();
 	
-	devices().then(function(val){
-		//console.log(val);
-	});
 });
+
+	// Video
+function onGettingFile(file, item){
+	//var fname = item.name;
+	/*FileSaver.saveAs(file);*/
+	$('#videoPlayer').prop('src', file.path);
+}
+
+function getVideoList(){
+	DiskStorage.GetFilesList(function(list) {
+		$("#video_files").empty();
+		 if (!list.length) {
+			 return;
+		 }
+		 list.forEach(function(item){
+			 console.log(list);
+			 var $li = $(document.createElement('li')),
+				btnPlay = $('<button></button>', {
+					class: 'btn webicon-download'
+				}).data(item),
+				btnRemove = $('<button></button>', {
+					class: 'btn webicon-clear'
+				}).data(item),
+				spanText = $('<span></span>', {
+					text: item.display
+				});
+			 $li.append(btnPlay).append(spanText).append(btnRemove);
+			 btnRemove.on('click', function(e){
+				 e.preventDefault();
+				 removeDiskFile($(this).data());
+				 return !1;
+			 });
+			 btnPlay.on('click', function(e){
+				 e.preventDefault();
+				 var data = $(this).data();
+				 DiskStorage.Fetch(data.name, function(file) {
+					 FileSaver.saveAs(file, data.name);
+					$('#videoPlayer').prop('src');
+				});
+				 return !1;
+			 });
+			 $("#video_files").prepend($li.data(item));
+		 });
+	});
+}
+
+// Record
+function startRecordScreen(){
+	if(isRecording){
+		return false;
+	}else{
+		chrome.desktopCapture.chooseDesktopMedia(['screen', 'audio'], onAccessApproved);
+	}
+}
+
+function stopRecordScreen(){
+	if(isRecording) {
+		mediaRecorder.stop();
+	}
+}
+
+function onAccessApproved(chromeMediaSourceId, opts){
+	constraints = {
+        audio: false,
+        video: {
+            mandatory: {
+                chromeMediaSource: 'desktop',
+                chromeMediaSourceId: chromeMediaSourceId,
+				maxWidth: 1920,
+				maxHeight: 1080,
+				minWidth: 1920,
+				minHeight: 1080,
+				/*
+				maxWidth: window.screen.availWidth,
+				maxHeight: window.screen.availHeight,
+				minWidth: window.screen.availWidth,
+				minHeight: window.screen.availHeight,
+				*/
+				maxFrameRate: 30
+            },
+            optional: []
+        }
+    }
+	if (opts.canRequestAudioTrack === true) {
+		constraints.audio = {
+			mandatory: {
+				chromeMediaSource: 'desktop',
+				chromeMediaSourceId: chromeMediaSourceId,
+				echoCancellation: true
+			},
+            optional: []
+		};
+	}
+	navigator.mediaDevices.getUserMedia(constraints).then(function(stream){
+		$('#recordBtn').removeClass('webicon-play').addClass('webicon-pause');
+		mediaRecorder = new MediaRecorder(stream);
+		mediaRecorder.addEventListener("dataavailable",function(event) {
+			audioChunks.push(event.data);
+			mediaRecorder.addEventListener("stop", function() {
+				$('#recordBtn').removeClass('webicon-pause').addClass('webicon-play');
+				var type = MediaRecorder.isTypeSupported('video/webm\;codecs=h264') ? 'video/mp4' : 'video/webm',
+					blob = new Blob(audioChunks, {
+						type: type
+					}),
+					now = new Date(),
+					fname = dateFormat(now, 'Розыгрыш призов от dd-mm-yyyy HH-MM-ss') + '.mp4',
+					tempFname = tempDir + '/' + dateFormat(now, 'dd-mm-yyyy_HH-MM-ss') +  + '.mp4';
+					
+					if(options.video.isOptimized){
+						var reader = new FileReader();
+						reader.addEventListener('loadend', function(){
+							var buffer = Buffer.from(reader.result);
+							var tmp = fs.writeFile(tempFname, buffer, function(err){
+								if (err) throw err;
+								$('body').addClass('wait');
+								win.setProgressBar(2);
+								$('#waitsettings .message').html('Обработка и сохранение видео...<br>Пожалуйста подождите.<br>Заварите кофе, уделите время семье :-))<br><br>Это реально долгий прцесс...<br>Возможно подвисание системы!')
+								var process = new ffmpeg(tempFname);
+								process.then(function (video) {
+									video
+									.save(tempFname +'.mp4', function (error, file) {
+										fs.unlinkSync(tempFname);
+										if (!error){
+											console.log('Video file: ' + file);
+											saveDiskFIle(file, fname);
+										}else {
+											console.log(error);
+											isRecording = false;
+										}
+										$('body').removeClass('wait');
+										$('#waitsettings .message').empty();
+										win.setProgressBar(0);
+									});
+								}).catch(function(error){
+									console.log(error);
+									$('body').removeClass('wait');
+									$('#waitsettings .message').empty();
+									fs.unlinkSync(tempFname);
+									fs.unlinkSync(tempFname + '.mp4');
+									win.setProgressBar(0);
+									isRecording = false;
+								});
+							});
+						}, false);
+						reader.readAsArrayBuffer(blob);
+					}else{
+						var file = new File([blob], fname, {
+							type: type
+						});
+						DiskStorage.StoreFile(file, function(){
+							getVideoList();
+							isRecording = false;
+						});
+					}
+				audioChunks = [];
+				mediaRecorder = null;
+			});
+		});
+		mediaRecorder.start();
+		isRecording = true;
+	});
+	return !1;
+}
+
+function saveDiskFIle(path, name){
+	fs.readFile(path, function(err, data){
+		if(err){
+			fs.unlinkSync(path);
+			console.log(err);
+			getVideoList();
+			isRecording = false;
+			return;
+		}
+		var type = mime.getType(path),
+			readBlob = new Blob([data], {
+				type: type,
+			}),
+			file = new File([readBlob], name, {
+				type: type,
+			});
+			DiskStorage.StoreFile(file, function(){
+				getVideoList();
+			});
+		fs.unlinkSync(path);
+		isRecording = false;
+	});
+}
+
+function removeDiskFile(item){
+	DiskStorage.RemoveFile(item.display, function(){
+		getVideoList();
+	});
+}
+
+var shortRecord = {
+	key : "Ctrl+Shift+PrintScreen",
+	active : function() {
+		if(isRecording){
+			stopRecordScreen();
+		}else{
+			startRecordScreen();
+		}
+	},
+	failed : function(msg) {
+		console.log(msg);
+	}
+};
+nw.App.registerGlobalHotKey(new nw.Shortcut(shortRecord));
+nw.App.clearCache();
+//require('nw.gui').Window.get().showDevTools();

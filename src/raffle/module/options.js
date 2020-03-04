@@ -130,7 +130,7 @@ var options = {
 			},
 			{
 				title: "Сталь №7",
-				src: "assets/user/bg/stee-0007.png",
+				src: "assets/user/bg/stee-0007.jpg",
 				url: false,
 				index: 21
 			},
@@ -184,6 +184,9 @@ var options = {
 		playing: true,
 		source: 0,
 		dest: [[],[]]
+	},
+	video : {
+		isOptimized: false
 	},
 	print : {
 		showDate: true,

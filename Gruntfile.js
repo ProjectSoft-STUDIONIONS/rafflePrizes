@@ -5,8 +5,8 @@ module.exports = function(grunt){
 		minifyCss: false,
 		dist: 'docs/assets',
 		fontVers: '1.0.1',
-		sdk: "normal",//"normal" "sdk"
-		version: "0.35.5"
+		sdk: "sdk",//"normal" "sdk"
+		version: "0.36.0"
 	};
 	var tasks = {
 		default: [
@@ -27,7 +27,13 @@ module.exports = function(grunt){
 			'pug',
 			'copy',
 			'nwjs',
-			'exec',
+			'exec:win32',
+			'exec:win64',
+			'exec:win32dll',
+			'exec:win64dll',
+			'exec:win32del',
+			'exec:win64del',
+			'exec:install',
 			'notify:cancel'
 		],
 		build: [
@@ -50,6 +56,10 @@ module.exports = function(grunt){
 			'nwjs',
 			'exec:win32',
 			'exec:win64',
+			'exec:win32dll',
+			'exec:win64dll',
+			'exec:win32del',
+			'exec:win64del',
 			'notify:cancel'
 		],
 		test: [
@@ -131,6 +141,19 @@ module.exports = function(grunt){
 					}
 				]
 			},
+			media: {
+				files: [
+					{
+						expand: true,
+						flatten : true,
+						src: [
+							'src/raffle/images/media/*.{png,jpg,gif,svg}'
+						],
+						dest: 'test/images/media/',
+						filter: 'isFile'
+					}
+				]
+			},
 			user: {
 				files: [
 					{
@@ -169,8 +192,12 @@ module.exports = function(grunt){
 				options: {
 					"app_name": "<%= pkg.name %>-projectsoft",
 					"dependencies": {
+						"blob-to-buffer": "^1.2.8",
 						"component-emitter": "^1.2.1",
 						"dateformat": "^3.0.3",
+						"ffmpeg": "0.0.4",
+						"file-saver": "^2.0.0",
+						"fluent-ffmpeg": "^2.1.2",
 						"jsmediatags": "^3.8.1",
 						"mime": "^2.4.0",
 						"nw-dialog": "^1.0.7",
@@ -184,10 +211,12 @@ module.exports = function(grunt){
 					"nodejs": true,
 					//"chromium-args": "--enable-logging=stderr --load-extension='RecordRTC'",
 					"version": "<%= pkg.version %>",
+					"winIco": "favicon.ico",
+					"page-cache": false,
+					"chromium-args": "--user-data-dir='temp/' --disk-cache-size=1 --media-cache-size=1",
 					"webkit": {
 						"plugin": true,
 					},
-					"winIco": "favicon.ico",
 					"window": {
 						"exe_icon": "favicon.png",
 						"frame": true,
@@ -461,7 +490,8 @@ module.exports = function(grunt){
 				expand: true,
 				cwd: 'src/embed',
 				src: [
-					'favicon.ico'
+					'favicon.ico',
+					'dll.ico',
 				],
 				dest: 'project',
 			},
@@ -473,11 +503,19 @@ module.exports = function(grunt){
 				],
 				dest: 'project/assets/images/',
 			},
+			images_m: {
+				expand: true,
+				cwd: 'test/images/media',
+				src: [
+					'**.*',
+				],
+				dest: 'project/assets/images/media/',
+			},
 			assets: {
 				expand: true,
-				cwd: 'src/raffle/user',
+				cwd: 'src/raffle/user/sounds',
 				src: "**",
-				dest: 'project/assets/user/',
+				dest: 'project/assets/user/sounds/',
 			},
 			module: {
 				expand: true,
@@ -502,7 +540,9 @@ module.exports = function(grunt){
 				buildDir: __dirname+'/.nwjs',
 				flavor: gc.sdk,
 				//version: gc.version,
-				cacheDir: __dirname+'/.cache'
+				cacheDir: __dirname+'/.cache',
+				zip: false,
+				
 			},
 			src: [__dirname+'/project/**/*']
 		},
@@ -512,6 +552,18 @@ module.exports = function(grunt){
 			},
 			win64: {
 				cmd: 'start "" /wait ResourceHacker -open .nwjs/<%= pkg.name %>/win64/<%= pkg.name %>.exe -save .nwjs/<%= pkg.name %>/win64/<%= pkg.name %>.exe -action addoverwrite -res project/favicon.ico -mask ICONGROUP,IDR_MAINFRAME,'
+			},
+			win32dll: {
+				cmd: 'start "" /wait ResourceHacker -open .nwjs/<%= pkg.name %>/win32/nw.dll -save .nwjs/<%= pkg.name %>/win32/nw.dll -action addoverwrite -res project/dll.ico -mask ICONGROUP,101,'
+			},
+			win64dll: {
+				cmd: 'start "" /wait ResourceHacker -open .nwjs/<%= pkg.name %>/win64/nw.dll -save .nwjs/<%= pkg.name %>/win64/nw.dll -action addoverwrite -res project/dll.ico -mask ICONGROUP,101,'
+			},
+			win32del: {
+				cmd: 'del .nwjs\\<%= pkg.name %>\\win32\\dll.ico'
+			},
+			win64del: {
+				cmd: 'del .nwjs\\<%= pkg.name %>\\win64\\dll.ico'
 			},
 			test: {
 				cmd: 'start "" /wait  .cache/' + gc.version + '-' + gc.sdk + '/win64/nw project/'

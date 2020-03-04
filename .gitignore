@@ -23,3 +23,6 @@ package-lock.json
 !**/.gitattributes
 !src/bin/*.svg
 !src/bin/*.zip
+*.sublime-workspace
+desktop.ini
+index.html

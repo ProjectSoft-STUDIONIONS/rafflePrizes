@@ -1,6 +1,3 @@
-/* jshint esversion: 6 */
-/* jslint expr: true */
-
 var uniqid = function (pr, en) {
 	var a1 = pr || "",
 		a2 = en || false,

@@ -78,24 +78,41 @@ Name: russian; MessagesFile: compiler:Languages\Russian.isl
 
 [Messages]
 AboutSetupMenuItem=&© ProjectSoft 2018
+
 [Icons]
-Name: {group}\{#AppName}; Filename: {app}\raffleprizes.exe
-Name: {group}\Удалить {#AppName}; Filename: {uninstallexe}
+Name: {group}\{#AppName}; Filename: {app}\raffleprizes.exe; WorkingDir: {app}; IconFilename: {app}\favicon.ico
+Name: {group}\Удалить; Filename: {uninstallexe}
 
 [Dirs]
 Name: {app}\locales
 Name: {app}\pnacl
-Name: {app}\swiftshader
+Name: {app}\swiftshader   
+Name: {app}\assets
+Name: {app}\module    
+Name: {app}\node_modules
 
 [UninstallDelete]
 Name: {app}\; Type: filesandordirs
 
 [Files]
-#include AddBackslash(SourcePath) + "parseroption.iss"
+#include AddBackslash(SourcePath) + "prepocessor.iss"
 Source: src\dlls\CallbackCtrl.dll; DestDir: {tmp}; Flags: dontcopy
 Source: src\res\RafflePrizes.dll; DestDir: {tmp}; Flags: dontcopy
-#emit ProcessFolder('.nwjs\' + AppNameDir + '\win64', '{app}', False, 'Is64BitInstallMode')
-#emit ProcessFolder('.nwjs\' + AppNameDir + '\win32', '{app}', 'solidbreak', 'not Is64BitInstallMode')
+; App
+#emit ProcessScanDir('.nwjs\' + AppNameDir + '\win64', '{app}', False, 'Is64BitInstallMode')
+#emit ProcessScanDir('.nwjs\' + AppNameDir + '\win32', '{app}', 'solidbreak ', 'not Is64BitInstallMode')
+; swiftshader
+#emit ProcessScanDir('.nwjs\' + AppNameDir + '\win64\swiftshader', '{app}\swiftshader\', False, 'Is64BitInstallMode')
+#emit ProcessScanDir('.nwjs\' + AppNameDir + '\win32\swiftshader', '{app}\swiftshader\', 'solidbreak ', 'not Is64BitInstallMode')
+; pnacl
+#emit ProcessScanDir('.nwjs\' + AppNameDir + '\win32\pnacl', '{app}\pnacl\', 'solidbreak ', False)
+; locales
+#emit ProcessScanDir('.nwjs\' + AppNameDir + '\win32\locales', '{app}\locales\', 'solidbreak ', False)
+
+; rafflePrizes
+#emit ProcessFolder('.nwjs\' + AppNameDir + '\win32\assets', '{app}\assets\', 'solidbreak ', False)
+#emit ProcessFolder('.nwjs\' + AppNameDir + '\win32\module', '{app}\module\', 'solidbreak ', False)
+#emit ProcessFolder('.nwjs\' + AppNameDir + '\win32\node_modules', '{app}\node_modules\', 'solidbreak ', False)
 
 [Code]
 #define A = (Defined UNICODE) ? "W" : "A"

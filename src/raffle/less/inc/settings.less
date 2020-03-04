@@ -33,6 +33,11 @@
 		margin-top: 0px;
 	}
 }
+#tab3 {
+	span {
+		font-weight: 300;
+	}
+}
 .panel {
 	&__settings {
 		display: block;
@@ -564,6 +569,52 @@
 		}
 	}
 }
+#video_files {
+	list-style: none;
+	padding-left: 0px;
+	.userselect(none);
+	overflow: hidden;
+	border: @border;
+	border-radius: 4px;
+	position:relative;
+	margin-bottom: 0px;
+	margin-top: 0;
+	&:empty {
+		border: 0px solid transparent;
+		&:before {
+			display: block;
+			padding-left:10px;
+			padding-right: 10px;
+			content: "Нет записанных розыгрышей";
+			color: red;
+		}
+	}
+	li {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		align-items: center;
+		background-color: #fff;
+		padding-top: 7px;
+		padding-bottom: 7px;
+		box-shadow: 0px 0px 1px #afafaf;
+		> span {
+			flex: 1;
+			display: block;
+			padding-left:10px;
+			padding-right: 10px;
+		}
+		> button {
+			&:first-child {
+				margin-left: 10px;
+			}
+			&:last-child {
+				margin-right: 10px;
+			}
+		}
+	}
+}
+
 button#resetDefault {
 	padding: 5px;
 	margin-right: 25px;

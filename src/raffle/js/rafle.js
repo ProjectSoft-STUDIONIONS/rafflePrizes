@@ -132,16 +132,6 @@ Array.prototype.shuffle = function( b ){
 					});
 					$("#langs > li > a[data-lang]").removeClass('active');
 					$("#langs > li > a[data-lang="+_lang+"]").addClass('active');
-					/*$('[data-tooltips-title]').tooltip(
-						{
-							trigger: 'hover',
-							title: function(){
-								return $(this).attr('data-tooltips-title');
-							},
-							container: 'body'
-						}
-					).removeAttr('title');*/
-					//clearTimeout(self.datetime);
 					self.date();
 				}
 			},
@@ -372,27 +362,8 @@ Array.prototype.shuffle = function( b ){
 				},
 				cursor: 'n-resize',
 				handle: '.handle'
-			});//.sortable( "refresh" );
+			});
 			$('.git a').unbind('click');
-			
-			/*$('[data-tooltips-title]').tooltip(
-				{
-					trigger: 'hover',
-					title: function(){
-						return $(this).attr('data-tooltips-title');
-					}
-				}
-			);*/
-			/*
-			$('.help > a').tooltip(
-				{
-					html: true,
-					placement: 'bottom',
-					container: '.help',
-					trigger: 'click'
-				}
-			);
-			*/
 			if(typeof MutationObserver == 'function'){
 				var $prz = self.prizes,
 					$btc = self.btnclear,
@@ -611,6 +582,7 @@ Array.prototype.shuffle = function( b ){
 			}
 		},
 		start: function(){
+			nw.App.clearCache();
 			var self = this,
 				childs = self.prizes.children(),
 				len = childs.length;
@@ -731,6 +703,7 @@ Array.prototype.shuffle = function( b ){
 					aus.index = 0;
 					clearTimeout(self.datetime);
 					self.date();
+					nw.App.clearCache();
 				}, 3000);
 			}, 500);
 			return self;
