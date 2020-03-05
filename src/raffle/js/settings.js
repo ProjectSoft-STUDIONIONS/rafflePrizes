@@ -55,7 +55,7 @@ window.styleSheetWriter = (
 	}
 )();
 
-var home = userInfo.homedir + '/AppData/Roaming/RafflePrize',
+var home = userInfo.homedir + '/AppData/Roaming/RafflePrizes',
 	notificationId = 'rafleprizes_projectsoft',
 	homedir = home.replace(/\\/g, '/'),
 	styleJson = homedir + '/style.json',
@@ -850,7 +850,11 @@ $(document).ready(function(){
 		e.preventDefault();
 		if(mediaRecorder){
 			stopRecordScreen();
+			if(window.win.isKioskMode)
+				window.win.leaveKioskMode();
 		}else{
+			if(!window.win.isKioskMode)
+				window.win.enterKioskMode()
 			startRecordScreen();
 		}
 		return !1;

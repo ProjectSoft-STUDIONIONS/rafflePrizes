@@ -35,7 +35,7 @@ menu.append(new nw.MenuItem({
 	label: '  ProjectSoft',
 	icon: "assets/images/projectsoft.png",
 	click: function(){
-		nw.Shell.openExternal("https://demiart.ru/forum/index.php?showuser=1393929");
+		nw.Shell.openExternal("https://projectsoft.ru/");
 	}
 }));
 

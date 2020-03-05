@@ -29,11 +29,8 @@ module.exports = function(grunt){
 			'nwjs',
 			'exec:win32',
 			'exec:win64',
-			'exec:win32dll',
-			'exec:win64dll',
-			'exec:win32del',
-			'exec:win64del',
-			'exec:install',
+			'exec:install_win32',
+			'exec:install_win64',
 			'notify:cancel'
 		],
 		build: [
@@ -115,9 +112,14 @@ module.exports = function(grunt){
 				'project/assets',
 				'installer/',
 				'prejscss/',
-				'.nwjs/'
+				'.nwjs/',
+				'.temp/'
 			],
-			
+			temp: [
+				'.nwjs/raffleprizes/win32/temp/',
+				'.nwjs/raffleprizes/win64/temp/',
+				'.temp/'
+			]
 		},
 		imagemin: {
 			options: {
@@ -204,12 +206,9 @@ module.exports = function(grunt){
 						"rimraf": "^2.6.3",
 						"underscore": "^1.9.1"
 					},
-					//"node-main": "assets/js/bg.js",
 					"main": "index.html",
 					"name": "<%= pkg.name %>",
-					//"bg-script": 'assets/js/bg.js',
 					"nodejs": true,
-					//"chromium-args": "--enable-logging=stderr --load-extension='RecordRTC'",
 					"version": "<%= pkg.version %>",
 					"winIco": "favicon.ico",
 					"page-cache": false,
@@ -553,23 +552,14 @@ module.exports = function(grunt){
 			win64: {
 				cmd: 'start "" /wait ResourceHacker -open .nwjs/<%= pkg.name %>/win64/<%= pkg.name %>.exe -save .nwjs/<%= pkg.name %>/win64/<%= pkg.name %>.exe -action addoverwrite -res project/favicon.ico -mask ICONGROUP,IDR_MAINFRAME,'
 			},
-			/*win32dll: {
-				cmd: 'start "" /wait ResourceHacker -open .nwjs/<%= pkg.name %>/win32/nw.dll -save .nwjs/<%= pkg.name %>/win32/nw.dll -action addoverwrite -res project/dll.ico -mask ICONGROUP,101,'
-			},
-			win64dll: {
-				cmd: 'start "" /wait ResourceHacker -open .nwjs/<%= pkg.name %>/win64/nw.dll -save .nwjs/<%= pkg.name %>/win64/nw.dll -action addoverwrite -res project/dll.ico -mask ICONGROUP,101,'
-			},
-			win32del: {
-				cmd: 'del .nwjs\\<%= pkg.name %>\\win32\\dll.ico'
-			},
-			win64del: {
-				cmd: 'del .nwjs\\<%= pkg.name %>\\win64\\dll.ico'
-			},*/
 			test: {
 				cmd: 'start "" /wait  .cache/' + gc.version + '-' + gc.sdk + '/win64/nw project/'
 			},
-			install: {
-				cmd: 'iscc install.iss'
+			install_win32: {
+				cmd: 'iscc install_win32.iss'
+			},
+			install_win64: {
+				cmd: 'iscc install_win64.iss'
 			}
 		},
 		// Изменения файлов

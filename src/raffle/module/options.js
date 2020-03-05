@@ -191,7 +191,7 @@ var options = {
 	print : {
 		showDate: true,
 		header: "https://github.com/ProjectSoft-STUDIONIONS/rafflePrizes",
-		footer: "https://demiart.ru/forum/index.php?showuser=1393929"
+		footer: "Developer by https://projectsoft.ru/"
 	}
 };
 
