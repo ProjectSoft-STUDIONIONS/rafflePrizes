@@ -1,0 +1,65 @@
+.arcticmodal {
+	&-container {
+		.arcticmodal {
+			&-container {
+				&_i {
+					min-width: 500px;
+					@media(max-width: 580px){
+						min-width: unset;
+					}
+					.success {
+						color: #2bff2b;
+					}
+					.error {
+						color: #f00;
+					}
+				}
+			}
+		}
+		.reload {
+			&-modal {
+				padding-bottom: 40px;
+				h2 {
+					padding-left:20px;
+					padding-right: 20px;
+					user-select: none;
+					span {
+						font-size: 30px;
+						text-shadow: 0 0 0 #fff, 0 0 2px #fff;
+						font-weight: 700;
+						text-transform: uppercase;
+						letter-spacing: 6px;
+						line-height: 1.1;
+					}
+				}
+				&-wrapper {
+					padding-bottom: 45px;
+					user-select: none;
+					font-size: 25px;
+					line-height: 1.1;
+				}
+				button {
+					-webkit-appearance: none;
+					border: unset !important;
+					min-width: 112px;
+					user-select: none;
+					&,
+					&:focus {
+						border: unset;
+						padding-left: 20px;
+						padding-right: 20px;
+						height: 48px;
+						color: #fff;
+						background-color: #ff38a0;
+						transition: all .3s ease;
+						font-size: 14px;
+						outline: unset !important;
+					}
+					&:hover {
+						box-shadow: 0px 0px 4px 1px #fff;
+					}
+				}
+			}
+		}
+	}
+}

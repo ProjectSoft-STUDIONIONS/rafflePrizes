@@ -1,0 +1,18 @@
+section#tab4.tab-container
+	fieldset
+		legend Печать
+		.flex-row.backgroundSounds
+			div
+				label
+					input#printDate(type="checkbox")
+					| Выводить дату в заголовок результата
+		.flex-row.backgroundSounds.printBlock
+			div
+				label
+					span.textLabel Верхний колонтитул
+					input#printHeader(type="text")
+		.flex-row.backgroundSounds.printBlock
+			div
+				label
+					span.textLabel Нижний колонтитул
+					input#printFooter(type="text")

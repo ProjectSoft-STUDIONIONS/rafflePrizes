@@ -1,0 +1,105 @@
+
+@media print {
+	.print-hidden {
+		display: none !important;
+	}
+	.forestedglass {
+		display: none !important;
+	}
+	.main {
+		background-image: unset !important;
+		background-color: transparent !important;
+		color: black !important;
+		
+		header.header {
+			color: black !important;
+			background-color: transparent !important;
+		}
+		* {
+			background-color: transparent !important;
+			box-shadow: unset !important;
+		}
+		footer.footer {
+			&,
+			a,
+			a:before,
+			a:after {
+				color: black !important;
+				background-color: transparent !important;
+			}
+			a:after {
+				display: block;
+				content: attr(href);
+			}
+		}
+		header.header,
+		footer.footer {
+			display: none !important;
+		}
+		.wrapper {
+			max-width: unset !important;
+			box-shadow: unset !important;
+			border: none !important;
+			padding: 0 !important;
+			.block {
+				padding: 0 !important;
+				box-shadow: unset !important;
+				border: none !important;
+				background-color: transparent !important;
+				color: black !important;
+				.page-title {
+					margin-top: 0 !important;
+				}
+				.resultraffle {
+					.date {
+						margin-top: 0 !important;
+					}
+				}
+				#result {
+					.prize {
+						display: flex !important;
+						flex-wrap: nowrap;
+						align-items: unset !important;
+						justify-content: flex-start;
+						margin-bottom: 10px;
+						.bg {
+							display: none !important;
+						}
+						.text {
+							display: inline !important;
+							padding-right: 0px !important;
+						}
+						.btn {
+							display: none !important;
+						}
+						&:before {
+							border: unset !important;
+							display: inline-block !important;
+							width: auto !important;
+							height: auto !important;
+							min-width: unset !important;
+							min-height: unset !important;
+							max-width: 200px !important;
+							max-height: unset !important;
+							background-color: transparent !important;
+							box-shadow: unset !important;
+							color: black !important;
+						}
+						.text,
+						&:before {
+							font-size: 18px !important;
+							font-weight: 400;
+						}
+					}
+				}
+			}
+		}
+	}
+	.resultraffle h2.date[data-date]:after {
+		display: block;
+		text-align: center;
+		white-space: pre;
+		content: attr(data-date);
+	}
+}
+@import: "prints";

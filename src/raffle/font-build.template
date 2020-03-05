@@ -6,6 +6,7 @@
 	src:<%= fontSrc2 %>;
 	font-weight:normal;
 	font-style:normal;
+	font-display: swap;
 }
 <% } %>
 <% if (baseStyles) { %>[class^="<%= classPrefix %>"]:before,

@@ -1,3 +1,29 @@
+#waitsettings {
+	position: fixed;
+	z-index: 999999999999;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	width: 100vw;
+	height: 100vh;
+	background-color: #fff;
+	background-image: url("/assets/images/spiner.gif");
+	background-position: center center;
+	background-size: 200px 200px;
+	background-repeat: no-repeat;
+	display: none;
+	.message {
+		.text-center();
+	}
+}
+.wait {
+	overflow: hidden;
+	#waitsettings {
+		display: block;
+	}
+}
+
 .flex-row {
 	display: flex;
 	flex-direction: row;
@@ -10,6 +36,8 @@
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
+	width: 100%;
+	overflow: hidden;
 	.header,
 	.footer,
 	.wrapper {
@@ -20,11 +48,13 @@
 	.footer {
 		background-color: #f50294;
 		color: white;
-		&:before,
-		&:after {
-			display: table;
-			content: "";
-			clear: both;
+		.clearfix();
+		a {
+			&,
+			&:hover,
+			&:focus {
+				color: white;
+			}
 		}
 	}
 	.header {
@@ -34,11 +64,25 @@
 		padding-top: 10px;
 		padding-bottom: 10px;
 		.settings {
-			display: block;
+			align-items: center;
+			display: flex;
 			float: right;
-			cursor: pointer;
-			.webicon-settings:before {
-				font-size: 20px;
+			.webicon-settings{
+				cursor: pointer;
+				&:before {
+					font-size: 20px;
+				}
+			}
+			button#recordBtn {
+				margin-right: 30px;
+				width: 20px;
+				height: 20px;
+				&:before {
+					font-size: 8px;
+					padding: 5px;
+					width: 20px;
+					height: 20px;
+				}
 			}
 		}
 		h1 {
@@ -57,7 +101,7 @@
 	}
 	.wrapper {
 		flex: 1 0 auto;
-		max-width: 980px;
+		max-width: 70vw;
 		margin-left: auto;
 		margin-right: auto;
 		width: 100%;
@@ -68,6 +112,49 @@
 			background-color: rgba(255,255,255,.5);
 			border: 1px solid rgba(255,255,255,.35);
 			box-shadow: 0 0 20px rgba(76,76,76,.2);
+			min-height: ~'calc(100vh - 115px)';
+			position: relative;
+		}
+		@media(max-width: 1200px){
+			max-width: 980px;
 		}
 	}
+}
+#btnraffle,
+#btnadd,
+#btnstitch,
+#btnclear {
+	width: 30px !important;
+	height: 30px !important;
+	min-width: 30px !important;
+	min-height: 30px !important;
+	max-width: 30px !important;
+	max-height: 30px !important;
+}
+.reload a.print-link,
+.reload a.reload-link {
+	width: 46px !important;
+	height: 46px !important;
+	min-width: 46px !important;
+	min-height: 46px !important;
+	max-width: 46px !important;
+	max-height: 46px !important;
+}
+#btnraffle,
+#btnadd,
+#btnstitch,
+#btnclear,
+.reload a.print-link,
+.reload a.reload-link {
+	overflow: hidden;
+}
+.loto .loto-raffle {
+	display: flex;
+	flex-basis: 100%;
+	justify-content: center;
+	min-width: 30px !important;
+	max-width: 30px !important;
+	width: 30px !important;
+	margin-left: auto;
+	margin-right: auto;
 }

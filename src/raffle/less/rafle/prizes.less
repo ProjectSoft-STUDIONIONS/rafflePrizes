@@ -1,0 +1,182 @@
+#prizes,
+#result {
+	list-style: none;
+	padding: 0;
+	margin-bottom: 15px;
+	margin-top: 5px;
+	&:empty {
+		margin-bottom: 0px;
+		margin-top: 0px;
+	}
+}
+ul.ui-sortable {
+	li {
+		&.prize {
+			transition: box-shadow .3s ease-in-out;
+			span {
+				&.handle {
+					cursor: n-resize;
+				}
+			}
+		}
+		&.ui-sortable-helper {
+			box-shadow: 0 0 18px rgba(0, 0, 0, 0.24);
+			z-index:1000;
+		}
+	}
+}
+li.prize {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: stretch;
+	background-color: #fff;
+	color: #333333;
+	box-shadow: 0px 0px 2px #ccc;
+	position: relative;
+	user-select: none;
+	span {
+		display: flex;
+		justify-content: flex-start;
+		&.handle {
+			position: absolute;
+			width: 100px;
+			height:  100px;
+			top: 0px;
+			left: 0px;
+			z-index: 3;
+		}
+		&.bg {
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-color: #fff;
+			box-shadow: 0px 0px 2px #ccc;
+			background-image: url('assets/images/nophoto.jpg');
+			&.pointer {
+				cursor: pointer;
+			}
+		}
+		&.text {
+			padding-left: 10px;
+			padding-right: 50px;
+			flex: 1 1 100%;
+			word-break: break-all;
+		}
+		&.btn {
+			&-clear, 
+			&-remove, 
+			&-edit {
+				position: absolute;
+				right: 10px;
+				margin-right: 0;
+			}
+			&-clear, 
+			&-remove {
+				bottom: 10px;
+			}
+			&-edit {
+				top: 10px;
+			}
+		}
+	}
+	span,
+	&:before {
+		display: flex;
+		align-items: center;
+	}
+	span.bg,
+	&:before {
+		width: 100px;
+		min-width: 100px;
+		max-width: 100px;
+		height: 100px;
+		min-height: 100px;
+		max-height: 100px;
+	}
+	&[data-number] {
+		&:before {
+			content: "?";
+			font-weight: bold;
+			font-size: 30px;
+			text-align: center;
+			color: #fff;
+			background-color: #05ad02;
+			justify-content: center;
+			z-index: 1;
+			box-shadow: 0 0 0px 1px #ccc;
+			position: relative;
+			transition: all .3s ease;
+		}
+		&:after {
+			color: #fff;
+			font-family: 'Raffle Prizes' !important;
+			speak: none;
+			font-style: normal;
+			font-weight: normal;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			content: " ";
+			position: absolute;
+			top: 5px;
+			left: 5px;
+			display: block;
+			z-index: 5;
+		}
+	}
+	&.active {
+		&[data-number] {
+			&:before {
+				content: attr(data-number);
+				background-color: #ff002f;
+			}
+			&:after {
+				content: "\e905"; 
+			}
+		}
+	}
+	@media print {
+		&[data-number] {
+			&:after{
+				display: none;
+			}
+		}
+	}
+}
+#prizes:empty:before {
+	display:block;
+	content: "Нет призов для розыгрыша";
+	text-align: center;
+}
+.raffleing {
+	#prizes:empty:before {
+		display:none;
+	}
+	ul.ui-sortable, ul {
+		li {
+			&.prize {
+				span {
+					&.handle {
+						display: none !important;
+					}
+				}
+			}
+		}
+	}
+	li.prize {
+		span {
+			&.btn {
+				display: none;
+			}
+		}
+	}
+}
+#result {
+	li.prize {
+		span {
+			&.handle {
+				display: none;
+			}
+		}
+	}
+}

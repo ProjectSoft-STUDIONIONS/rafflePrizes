@@ -1,0 +1,64 @@
+.btn {
+	display: inline-block;
+	font-size: 30px;
+	padding: 0px;
+	border-radius: 50%;
+	background-color: #fff;
+	color: #ff0085;
+	cursor: pointer;
+	margin-right: 10px;
+	box-shadow: 0 0 0 #fff;
+	transition: all .25s ease;
+	&:last-child {
+		margin-right: 0px;
+	}
+	&,
+	&:focus {
+		border: unset !important;
+		outline-color: unset !important;
+		outline-style: unset !important;
+		outline-width: unset !important;
+	}
+	&:hover {
+		color: #ff002f;
+		box-shadow: 0 0 11px rgba(255, 255, 255, .8);
+	}
+	&.disabled,
+	&[disabled]{
+		&,
+		&:hover,
+		&:focus {
+			cursor: not-allowed;
+			color: #ccc;
+			background-color: rgba(255, 255, 255, .6);
+			box-shadow: unset;
+		}
+	}
+	&:before {
+		display: block;
+		border-radius: 50%;
+		width: 30px;
+		height: 30px;
+	}
+	&.webicon {
+		&-raffle {
+			&.active {
+				&:before {
+					transform-origin: 50% 50%;
+					animation: RaffleProcess .5s linear 0s infinite;
+				}
+			}
+		}
+	}
+}
+@keyframes RaffleProcess {
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

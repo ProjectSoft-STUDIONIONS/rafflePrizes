@@ -1,0 +1,64 @@
+section#tab1.tab-container.active
+	fieldset
+		legend Фоновое изображение
+		.flex-row.backgroundImage
+			.assets-images.clearfix
+				ul#imagesAssets
+		hr
+		.flex-row.backgroundPosition
+			span
+				|Позиция фона
+			select#select-position
+				option(value="center top") По центру вверх
+				option(value="center center") По центру
+				option(value="center bottom") По центру вниз
+				option(value="unset") Нет
+		hr
+		.flex-row.backgroundRepeat
+			span
+				|Заполнение фона
+			select#select-repeat
+				option(value="no-repeat") Не заполнять
+				option(value="repeat") Заполнить
+				option(value="repeat-x") Заполнить по горизонтали
+				option(value="repeat-y") Заполнить по вертикали
+		hr
+		.flex-row.backgroundAttachment
+			span
+				|Фиксирование фона
+			select#select-attachment
+				option(value="fixed") Фиксированный
+				option(value="scroll") Скроллируемый
+		hr
+		.flex-row.backgroundSize
+			span
+				|Размер фона
+			select#select-size
+				option(value="cover") Cover
+				option(value="contain") Contain
+				option(value="auto") Auto
+	fieldset
+		legend Фоновая подложка
+		.flex-row
+			span
+				|Цвет подложки
+			input#bloorColor(type="text")
+		hr
+		.flex-row
+			span
+				|Размытие подложки
+			span
+				input#bloorBloor(type="range" min="0" max="25" step="0.01")
+				br
+				div#bloor-step.text-center
+	fieldset
+		legend Шапка и подвал
+		.flex-row
+			span
+				|Цвет Фона
+			input#hfBgColor(type="text")
+		hr
+		.flex-row
+			span
+				|Цвет текста
+			input#hfTextColor(type="text")
