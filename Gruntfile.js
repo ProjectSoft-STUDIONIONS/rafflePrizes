@@ -5,12 +5,11 @@ module.exports = function(grunt){
 		minifyCss: false,
 		dist: 'docs/assets',
 		fontVers: '1.0.1',
-		sdk: "sdk",//"normal" "sdk"
+		sdk: "normal",//"normal" "sdk"
 		version: "0.44.3"
 	};
 	var tasks = {
 		default: [
-			'notify:start',
 			'jshint',
 			'clean',
 			'webfont',
@@ -30,11 +29,9 @@ module.exports = function(grunt){
 			'exec:win32',
 			'exec:win64',
 			'exec:install_win32',
-			'exec:install_win64',
-			'notify:cancel'
+			'exec:install_win64'
 		],
 		build: [
-			'notify:start',
 			'jshint',
 			'clean',
 			'webfont',
@@ -52,15 +49,9 @@ module.exports = function(grunt){
 			'copy',
 			'nwjs',
 			'exec:win32',
-			'exec:win64',
-			//'exec:win32dll',
-			//'exec:win64dll',
-			//'exec:win32del',
-			//'exec:win64del',
-			'notify:cancel'
+			'exec:win64'
 		],
 		test: [
-			'notify:start',
 			'jshint',
 			'clean',
 			'webfont',
@@ -76,8 +67,7 @@ module.exports = function(grunt){
 			'uglify',
 			'pug',
 			'copy',
-			'exec:test',
-			'notify:cancel'
+			'exec:test'
 		],
 		dev: [
 			'watch'
@@ -90,15 +80,7 @@ module.exports = function(grunt){
 		pkg : grunt.file.readJSON('package.json'),
 		jshint: {
 			src: [
-				/*'src/raffle/js/bg.js',
-				'src/raffle/js/app.js',
-				'src/raffle/js/settings.js',
-				'src/raffle/js/main.js',
-				'project/module/helper.js',
-				'project/module/audioplaylist.js',
-				'project/module/uniqid.js'*/
-				'src/raffle/js/rafle.js',
-				//'src/raffle/js/.js'
+				'src/raffle/js/rafle.js'
 			],
 		},
 		clean: {
@@ -364,7 +346,7 @@ module.exports = function(grunt){
 					'src/raffle/js/rafle.js',
 					'src/raffle/js/main.js'
 				],
-				dest: "project/assets/js/app.js"//'prejscss/app.js'
+				dest: "project/assets/js/app.js"
 			}
 		},
 		less: {
@@ -451,9 +433,6 @@ module.exports = function(grunt){
 			},
 			main: {
 				files: {
-					/*'project/assets/js/app.js': [
-						'prejscss/app.js'
-					],*/
 					'project/assets/js/bg.js': [
 						'src/raffle/js/bg.js'
 					],
@@ -570,23 +549,7 @@ module.exports = function(grunt){
 				],
 				tasks: tasks.test
 			}
-		},
-		notify: {
-			start: {
-				options: {
-					title: "<%= pkg.name %> v<%= pkg.version %>",
-					message: 'Запуск',
-					image: __dirname+'\\src\\embed\\favicon.png'
-				}
-			},
-			cancel: {
-				options: { 
-					title: "<%= pkg.name %> v<%= pkg.version %>",
-					message: "Успешно Завершено",
-					image: __dirname+'\\src\\embed\\favicon.png'
-				}
-			}
-		},
+		}
 	});
 	grunt.registerTask('default',tasks.default);
 	grunt.registerTask('build', tasks.build);

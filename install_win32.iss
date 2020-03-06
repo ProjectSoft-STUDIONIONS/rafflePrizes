@@ -70,7 +70,7 @@ ShowLanguageDialog=no
 PrivilegesRequired=lowest
 
 [Languages]
-Name: russian; MessagesFile: compiler:Languages\Russian.isl
+Name: russian; MessagesFile: "compiler:Languages\Russian.isl,src\lang.isl"
 
 [Messages]
 AboutSetupMenuItem=&© ProjectSoft
@@ -151,11 +151,13 @@ begin
 	FilesMemo.ScrollBars := ssVertical;
 	FilesMemo.ReadOnly := True;
 	FilesMemo.Clear;
+	FilesMemo.Color := clBlack;
+	FilesMemo.Font.Color := clLime;
 	PercentsLabel:= TLabel.Create(WizardForm);
 	with PercentsLabel do
 	begin
 		Left:= WizardForm.ProgressGauge.Left;
-		Top:= WizardForm.ProgressGauge.Top + WizardForm.ProgressGauge.Height + ScaleY(4);
+		Top:= WizardForm.ProgressGauge.Top + WizardForm.ProgressGauge.Height + ScaleY(3);
 		Width:= WizardForm.StatusLabel.Width;
 		Height:= WizardForm.StatusLabel.Height;
 		AutoSize:= False;
