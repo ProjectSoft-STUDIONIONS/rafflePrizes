@@ -81,15 +81,11 @@ Name: {group}\{#AppName}; Filename: {app}\raffleprizes.exe; WorkingDir: {app}; I
 Name: {group}\Удалить; Filename: {uninstallexe}
 
 [Dirs]
-Name: {app}\locales
-Name: {app}\pnacl
-Name: {app}\swiftshader   
-Name: {app}\assets
-Name: {app}\module    
-Name: {app}\node_modules
+Name: "{app}"; Flags: uninsalwaysuninstall
 
 [UninstallDelete]
-Name: {app}\; Type: filesandordirs
+Name: "{app}\*.*"; Type: filesandordirs
+Name: "{app}"; Type: dirifempty
 
 [Files]
 Source: InnoCallback.dll; Flags: dontcopy
