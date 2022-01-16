@@ -1,5 +1,5 @@
 #define AppName 'Генератор розыгрыша призов'
-#define AppVersion '1.6'
+#define AppVersion '1.7'
 #define AppCopyright 'Copyright © 2008 all right reserved ProjectSoft'
 #define InstallText 'Удалить'
 #define GitHub 'https://github.com/ProjectSoft-STUDIONIONS/rafflePrizes'
@@ -18,7 +18,6 @@ AppPublisherURL=http://projectsoft.ru/
 AppSupportURL=http://projectsoft.ru/
 AppContact=projectsoft2009@yandex.ru
 AppComments={#AppName}
-; AppUpdatesURL={#GitReleace}
 
 VersionInfoVersion={#AppVersion}
 VersionInfoCompany=ProjectSoft
@@ -37,7 +36,7 @@ SolidCompression=false
 InternalCompressLevel=ultra
 
 OutputDir=installer
-OutputBaseFilename=RafflePrizesSetup_win64
+OutputBaseFilename=RafflePrizesSetup
 SetupIconFile=project/favicon.ico
 WizardImageFile=src/embed/wizard.bmp
 WizardSmallImageFile=src/embed/logo.bmp
@@ -65,9 +64,6 @@ DisableProgramGroupPage=true
 DisableDirPage=true
 ShowLanguageDialog=no
 
-ArchitecturesAllowed=x64
-ArchitecturesInstallIn64BitMode=x64
-
 PrivilegesRequired=lowest
 
 [Languages]
@@ -77,6 +73,7 @@ Name: russian; MessagesFile: "compiler:Languages\Russian.isl,src\lang.isl"
 AboutSetupMenuItem=&© ProjectSoft
 
 [Icons]
+Name: {userdesktop}\{#AppName}; Filename: {app}\raffleprizes.exe; WorkingDir: {app}; IconFilename: {app}\favicon.ico 
 Name: {group}\{#AppName}; Filename: {app}\raffleprizes.exe; WorkingDir: {app}; IconFilename: {app}\favicon.ico
 Name: {group}\Удалить; Filename: {uninstallexe}
 
@@ -89,11 +86,11 @@ Name: "{app}"; Type: dirifempty
 
 [Files]
 Source: InnoCallback.dll; Flags: dontcopy
-Source: ".nwjs\raffleprizes\win64\*"; DestDir: "{app}\"; BeforeInstall: AddToMemo; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ".nwjs\raffleprizes\win32\*"; DestDir: "{app}\"; BeforeInstall: AddToMemo; Flags: ignoreversion recursesubdirs createallsubdirs
 #include AddBackslash(SourcePath) + "prepocessor.iss"
-#emit ProcessScanDir('.nwjs\raffleprizes\win64', '{app}', 'solidbreak ', False, 'AddToMemo')
+#emit ProcessScanDir('.nwjs\raffleprizes\win32', '{app}', 'solidbreak ', False, 'AddToMemo')
 
-#expr SaveToFile (AddBackslash (SourcePath) + ".install_win64.iss")
+#expr SaveToFile (AddBackslash (SourcePath) + ".install.iss")
 
 [code]
 type

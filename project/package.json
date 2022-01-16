@@ -1,0 +1,45 @@
+{
+    "app_name": "raffleprizes-projectsoft",
+    "dependencies": {
+        "blob-to-buffer": "^1.2.8",
+        "component-emitter": "^1.2.1",
+        "ffmpeg": "0.0.4",
+        "file-saver": "^2.0.0",
+        "fluent-ffmpeg": "^2.1.2",
+        "jsmediatags": "^3.8.1",
+        "mime": "^2.4.0",
+        "nw-dialog": "^1.0.7",
+        "rimraf": "^2.6.3",
+        "underscore": "^1.9.1"
+    },
+    "main": "index.html",
+    "name": "raffleprizes",
+    "nodejs": true,
+    "version": "3.1",
+    "winIco": "favicon.ico",
+    "page-cache": false,
+    "chromium-args": "--user-data-dir='temp/' --disk-cache-size=1 --media-cache-size=1",
+    "webkit": {
+        "plugin": true
+    },
+    "window": {
+        "exe_icon": "favicon.png",
+        "frame": true,
+        "height": 400,
+        "icon": "favicon.png",
+        "id": "raffleprizes-projectsoft",
+        "kiosk_emulation": true,
+        "mac_icon": "favicon.png",
+        "min_height": 400,
+        "min_width": 800,
+        "position": "center",
+        "resizable": true,
+        "show_in_taskbar": true,
+        "title": "Генератор розыгрыша призов",
+        "toolbar": true,
+        "visible": true,
+        "visible_on_all_workspaces": true,
+        "width": 800
+    },
+    "zip": false
+}

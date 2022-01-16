@@ -6,7 +6,7 @@ module.exports = function(grunt){
 		dist: 'docs/assets',
 		fontVers: '1.0.1',
 		sdk: "sdk",//"normal" "sdk"
-		version: "0.44.3"
+		version: "0.49.0"
 	};
 	var tasks = {
 		default: [
@@ -26,10 +26,10 @@ module.exports = function(grunt){
 			'pug',
 			'copy',
 			'nwjs',
-			'exec:win32',
-			'exec:win64',
-			'exec:install_win32',
-			'exec:install_win64'
+			//'exec:win32',
+			//'exec:win64',
+			//'exec:install_win32',
+			//'exec:install_win64'
 		],
 		build: [
 			'jshint',
@@ -48,8 +48,8 @@ module.exports = function(grunt){
 			'pug',
 			'copy',
 			'nwjs',
-			'exec:win32',
-			'exec:win64'
+			//'exec:win32',
+			//'exec:win64'
 		],
 		test: [
 			'jshint',
@@ -73,11 +73,12 @@ module.exports = function(grunt){
 			'watch'
 		]
 	};
+	const pkg = grunt.file.readJSON('package.json');
 	require('load-grunt-tasks')(grunt);
 	require('time-grunt')(grunt);
 	grunt.initConfig({
 		globalConfig : gc,
-		pkg : grunt.file.readJSON('package.json'),
+		pkg : pkg,
 		jshint: {
 			src: [
 				'src/raffle/js/rafle.js'
@@ -178,7 +179,6 @@ module.exports = function(grunt){
 					"dependencies": {
 						"blob-to-buffer": "^1.2.8",
 						"component-emitter": "^1.2.1",
-						"dateformat": "^3.0.3",
 						"ffmpeg": "0.0.4",
 						"file-saver": "^2.0.0",
 						"fluent-ffmpeg": "^2.1.2",
@@ -514,31 +514,21 @@ module.exports = function(grunt){
 		},
 		nwjs: {
 			options: {
-				platforms: ['win'],
+				platforms: ['win32'],
+				winIco: __dirname+'/project/favicon.ico',
 				buildDir: __dirname+'/.nwjs',
 				flavor: gc.sdk,
 				version: gc.version,
 				cacheDir: __dirname+'/.cache',
 				zip: false,
-				
+				appName: pkg.appName,
+				appVersion: pkg.version
 			},
 			src: [__dirname+'/project/**/*']
 		},
 		exec: {
-			win32: {
-				cmd: 'start "" /wait ResourceHacker -open .nwjs/<%= pkg.name %>/win32/<%= pkg.name %>.exe -save .nwjs/<%= pkg.name %>/win32/<%= pkg.name %>.exe -action addoverwrite -res project/favicon.ico -mask ICONGROUP,IDR_MAINFRAME,'
-			},
-			win64: {
-				cmd: 'start "" /wait ResourceHacker -open .nwjs/<%= pkg.name %>/win64/<%= pkg.name %>.exe -save .nwjs/<%= pkg.name %>/win64/<%= pkg.name %>.exe -action addoverwrite -res project/favicon.ico -mask ICONGROUP,IDR_MAINFRAME,'
-			},
 			test: {
 				cmd: 'start "" /wait  .cache/' + gc.version + '-' + gc.sdk + '/win64/nw project/'
-			},
-			install_win32: {
-				cmd: 'iscc install_win32.iss'
-			},
-			install_win64: {
-				cmd: 'iscc install_win64.iss'
 			}
 		},
 		// Изменения файлов

@@ -982,8 +982,12 @@ function onAccessApproved(chromeMediaSourceId, opts){
 						type: type
 					}),
 					now = new Date(),
-					fname = dateFormat(now, 'Розыгрыш призов от dd-mm-yyyy HH-MM-ss') + '.mp4',
-					tempFname = tempDir + '/' + dateFormat(now, 'dd-mm-yyyy_HH-MM-ss') +  + '.mp4';
+					fname = 'Розыгрыш призов от ' + helper.fullFormat(now, ' ', '-', '-') + '.mp4',
+					tempFname = tempDir + '/' + helper.fullFormat(now, '_', '-', '-') +  + '.mp4';
+					//dateFormat(now, 'Розыгрыш призов от dd-mm-yyyy HH-MM-ss') + '.mp4',
+					//tempFname = tempDir + '/' + dateFormat(now, 'dd-mm-yyyy_HH-MM-ss') +  + '.mp4';
+					//fname = dateFormat(now, 'Розыгрыш призов от dd-mm-yyyy HH-MM-ss') + '.mp4',
+					//tempFname = tempDir + '/' + dateFormat(now, 'dd-mm-yyyy_HH-MM-ss') +  + '.mp4';
 					
 					if(options.video.isOptimized){
 						var reader = new FileReader();

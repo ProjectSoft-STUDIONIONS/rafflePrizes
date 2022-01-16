@@ -20,6 +20,7 @@ package-lock.json
 !src/bin/*.zip
 !src/bin/*.psd
 !src/bin/*.ai
+!project/package.json
 *.sublime-workspace
 desktop.ini
 index.html

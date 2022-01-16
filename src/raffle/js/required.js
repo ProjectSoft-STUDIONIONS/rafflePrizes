@@ -1,10 +1,14 @@
+const sdk = (nw.process.versions["nw-flavor"] == "sdk");
+sdk &&  nw.Window.get().showDevTools();
+nw.Window.get().maximize();
+
 var gui = require('nw.gui'),
 	fs = require('fs'),
 	os = require('os'),
 	rimraf = require('rimraf'),
 	mime = require("mime"),
 	ID3 = require("jsmediatags"),
-	dateFormat = require('dateformat'),
+	//dateFormat = require('dateformat'),
 	path = require('path'),
 	ffmpeg = require('ffmpeg'),
 	

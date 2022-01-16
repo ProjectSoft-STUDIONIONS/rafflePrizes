@@ -1,7 +1,4 @@
-
-var dateFormat = require('dateformat');
-
-var __helper = {
+__helper = {
 	pack: function(data){
 		return JSON.stringify(data, null, '\t');
 	},
@@ -47,7 +44,31 @@ var __helper = {
 	secondsFormat: function(val) {
 		var date = new Date(null);
 		date.setSeconds(val);
-		return dateFormat(date, 'MM:ss');
+		return date.toISOString().slice(14, 19);
+	},
+	fullFormat: function(date, slash = ' ', slashDate = '-', slashTime=':'){
+		//dd-mm-yyyy HH-MM-ss
+		let day = date.getDate(),
+			month = date.getMonth() + 1,
+			year = date.getFullYear(),
+			hour = date.getHours(),
+			minute = date.getMinutes(),
+			second = date.getSeconds(),
+			dateDay = [
+				day < 10 ? `0${day}` : `${day}`,
+				month < 10 ? `0${month}` : `${month}`,
+				year
+			].join(slashDate),
+			dateTime = [
+				hour < 10 ? `0${hour}` : `${hour}`,
+				minute < 10 ? `0${minute}` : `${minute}`,
+				second < 10 ? `0${second}` : `${second}`
+			].join(slashTime),
+			format = [
+				dateDay,
+				dateTime
+			].join(slash);
+		return format;
 	}
 };
 
