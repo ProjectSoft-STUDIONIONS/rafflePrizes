@@ -5,7 +5,7 @@ module.exports = function(grunt){
 		minifyCss: false,
 		dist: 'docs/assets',
 		fontVers: '1.0.1',
-		sdk: "sdk",//"normal" "sdk"
+		sdk: "normal",//"normal" "sdk"
 		version: "0.49.0"
 	};
 	var tasks = {
