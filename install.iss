@@ -32,10 +32,9 @@ DefaultDirName={userappdata}\{#DirName}
 DefaultGroupName={#AppName}
 
 Compression=lzma/ultra
-SolidCompression=false
-InternalCompressLevel=ultra
+SolidCompression=yes
 
-OutputDir=installer
+OutputDir=install
 OutputBaseFilename=RafflePrizesSetup
 SetupIconFile=project/favicon.ico
 WizardImageFile=src/embed/wizard.bmp
