@@ -25,11 +25,7 @@ module.exports = function(grunt){
 			'uglify',
 			'pug',
 			'copy',
-			'nwjs',
-			//'exec:win32',
-			//'exec:win64',
-			//'exec:install_win32',
-			//'exec:install_win64'
+			'nwjs'
 		],
 		build: [
 			'jshint',
@@ -47,9 +43,7 @@ module.exports = function(grunt){
 			'uglify',
 			'pug',
 			'copy',
-			'nwjs',
-			//'exec:win32',
-			//'exec:win64'
+			'nwjs'
 		],
 		test: [
 			'jshint',
