@@ -28,5 +28,3 @@ var gui = require('nw.gui'),
 	rmdirAsync = promisify(fs.rmdir),
 	lstatAsync = promisify(fs.lstat),
 	FileSaver = require('file-saver');
-	//testffmpeg = require('fluent-ffmpeg'),
-	//toBuffer = require('blob-to-buffer');

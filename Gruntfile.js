@@ -170,17 +170,6 @@ module.exports = function(grunt){
 				dest: "project/package.json",
 				options: {
 					"app_name": "<%= pkg.name %>-projectsoft",
-					"devDependencies": {
-						"component-emitter": "^1.3.0",
-						"ffmpeg": "0.0.4",
-						"file-save": "^0.2.0",
-						"file-saver": "^2.0.5",
-						"jsmediatags": "^3.9.7",
-						"mime": "^3.0.0",
-						"nw-dialog": "^1.0.7",
-						"rimraf": "^3.0.2",
-						"underscore": "^1.13.2"
-					},
 					"main": "index.html",
 					"name": "<%= pkg.name %>",
 					"nodejs": true,
@@ -210,7 +199,17 @@ module.exports = function(grunt){
 						"visible_on_all_workspaces": true,
 						"width": 800
 					},
-					"zip": false
+					"zip": false,
+					"devDependencies": {
+						"component-emitter": "^1.3.0",
+						"ffmpeg": "0.0.4",
+						"file-saver": "^2.0.5",
+						"jsmediatags": "^3.9.7",
+						"mime": "^3.0.0",
+						"nw-dialog": "^1.0.7",
+						"rimraf": "^3.0.2",
+						"underscore": "^1.13.2"
+					}
 				}
 			}
 		},
