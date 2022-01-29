@@ -48,6 +48,7 @@
 		"grunt-webfont": "^1.7.2",
 		"jsmediatags": "git+https://github.com/aadsm/jsmediatags.git",
 		"load-grunt-tasks": "^5.1.0",
+		"svg-pathdata": "^6.0.3",
 		"time-grunt": "^2.0.0",
 		"ttf2woff2": "^4.0.4"
 	},
