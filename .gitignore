@@ -17,6 +17,7 @@ src/res/**/*
 package-lock.json
 !**/.gitignore
 !**/.gitattributes
+!.github/
 !src/bin/*.svg
 !src/bin/*.zip
 !src/bin/*.psd
