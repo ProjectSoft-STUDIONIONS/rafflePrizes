@@ -1,4 +1,4 @@
-#pragma parseroption -p-
+﻿#pragma parseroption -p-
 #define FileEntry(Source, DestDir, Check, Flags, BeforeInstall) \
 	"Source: \"" + Source + "\"; DestDir: " + DestDir + "\; " + \
 	(BeforeInstall ? "BeforeInstall: " + BeforeInstall + "; " : "") + \

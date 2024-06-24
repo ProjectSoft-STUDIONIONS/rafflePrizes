@@ -1,12 +1,12 @@
 {
-    "app_name": "raffleprizes-projectsoft",
+    "app_name": "raffleprizes",
     "main": "index.html",
     "name": "raffleprizes",
     "nodejs": true,
-    "version": "3.1",
+    "version": "3.2",
     "winIco": "favicon.ico",
     "page-cache": false,
-    "chromium-args": "--user-data-dir='temp/' --disk-cache-size=1 --media-cache-size=1",
+    "chromium-args": "--disk-cache-size=1 --media-cache-size=1",
     "webkit": {
         "plugin": true
     },
@@ -15,7 +15,7 @@
         "frame": true,
         "height": 400,
         "icon": "favicon.png",
-        "id": "raffleprizes-projectsoft",
+        "id": "raffleprizes",
         "kiosk_emulation": true,
         "mac_icon": "favicon.png",
         "min_height": 400,

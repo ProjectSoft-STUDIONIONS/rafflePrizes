@@ -218,6 +218,7 @@ module.exports = function(grunt){
 				src: 'src/raffle/glyph/*.svg',
 				dest: 'src/raffle/fonts',
 				options: {
+					engine: 'node',
 					hashes: false,
 					autoHint: false,
 					relativeFontPath: '/assets/fonts/',
@@ -245,6 +246,7 @@ module.exports = function(grunt){
 				src: 'src/raffle/glyph/*.svg',
 				dest: 'src/raffle/fonts',
 				options: {
+					engine: 'node',
 					hashes: false,
 					autoHint: false,
 					relativeFontPath: '/assets/fonts/',

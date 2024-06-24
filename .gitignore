@@ -24,4 +24,4 @@ package-lock.json
 !project/package.json
 *.sublime-workspace
 desktop.ini
-index.html
+/index.html

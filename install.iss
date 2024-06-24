@@ -1,7 +1,7 @@
-#define AppName 'Генератор розыгрыша призов'
-#define AppVersion '1.7'
-#define AppCopyright 'Copyright © 2008 all right reserved ProjectSoft'
-#define InstallText 'Удалить'
+п»ї#include AddBackslash(SourcePath) + "version.iss"
+#define AppName 'Р“РµРЅРµСЂР°С‚РѕСЂ СЂРѕР·С‹РіСЂС‹С€Р° РїСЂРёР·РѕРІ'
+#define AppCopyright 'Copyright В© 2008 all right reserved ProjectSoft'
+#define InstallText 'РЈРґР°Р»РёС‚СЊ'
 #define GitHub 'https://github.com/ProjectSoft-STUDIONIONS/rafflePrizes'
 #define DirName 'RafflePrizes'      
 #define AppNameDir 'raffleprizes'
@@ -69,12 +69,12 @@ PrivilegesRequired=lowest
 Name: russian; MessagesFile: "compiler:Languages\Russian.isl,src\lang.isl"
 
 [Messages]
-AboutSetupMenuItem=&© ProjectSoft
+AboutSetupMenuItem=&В© ProjectSoft
 
 [Icons]
 Name: {userdesktop}\{#AppName}; Filename: {app}\raffleprizes.exe; WorkingDir: {app}; IconFilename: {app}\favicon.ico 
 Name: {group}\{#AppName}; Filename: {app}\raffleprizes.exe; WorkingDir: {app}; IconFilename: {app}\favicon.ico
-Name: {group}\Удалить; Filename: {uninstallexe}
+Name: {group}\РЈРґР°Р»РёС‚СЊ; Filename: {uninstallexe}
 
 [Dirs]
 Name: "{app}"; Flags: uninsalwaysuninstall
@@ -115,7 +115,7 @@ Procedure PercentsProc(h, msg, idevent, dwTime: Longword);
 Begin
 	with WizardForm.ProgressGauge do
 	begin
-		PercentsLabel.Caption:= 'Выполнено ' + NumToStr((Position*100)/Max) + ' %';
+		PercentsLabel.Caption:= 'Р’С‹РїРѕР»РЅРµРЅРѕ ' + NumToStr((Position*100)/Max) + ' %';
 	end;
 End;
  

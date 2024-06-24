@@ -1,11 +1,13 @@
 {
 	"name": "raffleprizes",
 	"appName": "RafflePrizes",
-	"version": "3.1",
+	"version": "3.2",
 	"description": "Генератор розыгрыша призов",
 	"main": "package.json",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"preinstall": "npm i -g less pug-cli bower && bower install && cd application && npm i",
+		"inst": "npm i --legacy-peer-deps",
+		"page": "grunt --gruntfile page.js -v",
 	},
 	"repository": {
 		"type": "git",
@@ -53,6 +55,7 @@
 		"ttf2woff2": "^4.0.4"
 	},
 	"dependencies": {
+		"dotenv": "^16.4.5",
 		"less-plugin-clean-css": "^1.5.1",
 		"less-plugin-lists": "^1.1.2"
 	}
