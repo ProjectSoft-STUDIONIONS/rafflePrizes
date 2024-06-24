@@ -55,7 +55,10 @@ html(lang="ru" prefix="og: http://ogp.me/ns#")
 				p
 					|
 				p.text-center
-					a(href="https://github.com/" + userName + "/" + page + "/releases/latest/download/YourRadioLightSetup.exe" target="_blank")
+					a(href="https://" + repo + "/" + page + "/images/" + open_graph.image_16x9 target="_blank" data-fancybox="raffleprizes")
+						img(src="https://" + repo + "/" + page + "/images/" + open_graph.image_1x1 alt=h1title)
+				p.text-center
+					a(href="https://github.com/" + userName + "/" + page + "/releases/latest/download/" + download target="_blank")
 						img(src="https://img.shields.io/github/downloads/" + userName + "/" + page + "/total?style=for-the-badge&color=%2397ca00&label=СКАЧАТЬ" alt="Github Download radioApp-lite")
 		footer
 			.wrapper
