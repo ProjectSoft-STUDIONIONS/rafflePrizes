@@ -52,11 +52,20 @@ html(lang="ru" prefix="og: http://ogp.me/ns#")
 					a(href="https://github.com/" + userName + "/" + page + "/releases/latest/download/" + download download=download target="_blank")
 						img(src="https://img.shields.io/github/downloads/" + userName + "/" + page + "/total?style=for-the-badge&color=%2397ca00&label=СКАЧАТЬ" alt="Download " + download)
 				h1= h1title
-				p
-					|
 				p.text-center
 					a(href="https://" + repo + "/" + page + "/images/" + open_graph.image_16x9 target="_blank" data-fancybox="raffleprizes")
 						img(src="https://" + repo + "/" + page + "/images/" + open_graph.image_1x1 alt=h1title)
+				p
+					|Приложение «#{h1title}» разработан на Node WebKit (nwjs) для проведения розыгрыша призов.
+				p
+					|В настройках приложения можно включить/отключить воспроизведение фоновых треков или загрузить свой фоновый трек, поменять фоновое изображение или загрузить своё, поменять цвета шапки, подвала, контента. Так же можно настроить запись видео, вывод результатов на печать.
+				p
+					|Приложение разрабатывалось строго для себя и поэтому содержит только собственные условия проведения розыгрышей. Но, как я думаю, этого достаточно.
+				p
+					|Реализ содержит инсталляционный файл, который можно скачать по ссылке ниже
+					=" "
+					strong ↓
+					|.
 				p.text-center
 					a(href="https://github.com/" + userName + "/" + page + "/releases/latest/download/" + download target="_blank")
 						img(src="https://img.shields.io/github/downloads/" + userName + "/" + page + "/total?style=for-the-badge&color=%2397ca00&label=СКАЧАТЬ" alt="Github Download radioApp-lite")
