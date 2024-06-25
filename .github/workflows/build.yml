@@ -1,8 +1,8 @@
 name: Build and publish
-on: [push]
-  # push:
-  #   tags:
-  #     - "*"
+on: # [push]
+   push:
+     tags:
+       - "*"
 concurrency:
   group: "build"
   cancel-in-progress: true
