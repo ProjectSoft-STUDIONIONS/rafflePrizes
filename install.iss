@@ -85,9 +85,9 @@ Name: "{app}"; Type: dirifempty
 
 [Files]
 Source: InnoCallback.dll; Flags: dontcopy
-Source: ".nwjs\raffleprizes\win32\*"; DestDir: "{app}\"; BeforeInstall: AddToMemo; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "build\*"; DestDir: "{app}\"; BeforeInstall: AddToMemo; Flags: ignoreversion recursesubdirs createallsubdirs
 #include AddBackslash(SourcePath) + "prepocessor.iss"
-#emit ProcessScanDir('.nwjs\raffleprizes\win32', '{app}', 'solidbreak ', False, 'AddToMemo')
+#emit ProcessScanDir('build', '{app}', 'solidbreak ', False, 'AddToMemo')
 
 #expr SaveToFile (AddBackslash (SourcePath) + ".install.iss")
 

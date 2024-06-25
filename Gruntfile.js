@@ -1,78 +1,112 @@
 module.exports = function(grunt){
-	var gc = {
-		imageNotyfy: __dirname+'\\src\\notify.png',
-		minifyHtml: false,
-		minifyCss: false,
-		dist: 'docs/assets',
-		fontVers: '1.0.1',
-		sdk: "sdk",//"normal" "sdk"
-		version: "0.49.0"
-	};
-	var tasks = {
-		default: [
-			'jshint',
-			'clean',
-			'webfont',
-			'imagemin',
-			'json_generator',
-			'requirejs',
-			'less',
-			'concat',
-			'autoprefixer',
-			'group_css_media_queries',
-			'replace',
-			'cssmin',
-			'uglify',
-			'pug',
-			'copy',
-			'nwjs'
-		],
-		build: [
-			'jshint',
-			'clean',
-			'webfont',
-			'imagemin',
-			'json_generator',
-			'requirejs',
-			'less',
-			'concat',
-			'autoprefixer',
-			'group_css_media_queries',
-			'replace',
-			'cssmin',
-			'uglify',
-			'pug',
-			'copy',
-			'nwjs'
-		],
-		test: [
-			'jshint',
-			'clean',
-			'webfont',
-			'imagemin',
-			'json_generator',
-			'requirejs',
-			'less',
-			'concat',
-			'autoprefixer',
-			'group_css_media_queries',
-			'replace',
-			'cssmin',
-			'uglify',
-			'pug',
-			'copy',
-			'exec:test'
-		],
-		dev: [
-			'watch'
-		]
-	};
-	const pkg = grunt.file.readJSON('package.json');
+
+	process.removeAllListeners('warning');
+	require('dotenv').config();
+
+	const target = process.env.NWJS_TARGET == "1" ? true : false,
+		update = process.env.NWJS_UPDATE == "1" ? true : false,
+		version = process.env.NWJS_VERSION == "0" ? "0.49.0" : process.env.NWJS_VERSION; // 0.87.0
+
 	require('load-grunt-tasks')(grunt);
+	grunt.loadNpmTasks('innosetup-compiler');
+
+	require('./modules/Downloader.js')(grunt);
+	require('./modules/Build.js')(grunt);
+	require('./modules/Versions.js')(grunt);
+
 	require('time-grunt')(grunt);
+
+	const pkg = grunt.file.readJSON('package.json');
+
+	var gc = {
+			imageNotyfy: __dirname + '\\src\\notify.png',
+			minifyHtml: false,
+			minifyCss: false,
+			dist: 'docs/assets',
+			fontVers: '1.0.1',
+			sdk: target ? "normal" : "sdk",
+			version: version
+		},
+		flv = target ? '' : '-sdk',
+		tasks = {
+			default: [
+				'jshint',
+				'clean:test',
+				'webfont',
+				'imagemin',
+				'json_generator',
+				'requirejs',
+				'less',
+				'concat',
+				// 'autoprefixer',
+				// 'group_css_media_queries',
+				// 'replace',
+				'cssmin',
+				'uglify',
+				'pug',
+				'clean:lock',
+				'downloader',
+				'unzip',
+				'version_edit',
+				'copy',
+				'zip',
+				'clean:vk',
+				'buildnw',
+				'innosetup'
+			]
+		};
 	grunt.initConfig({
 		globalConfig : gc,
 		pkg : pkg,
+		version_edit: {
+			main: {
+				options: {
+					pkg: pkg,
+				}
+			}
+		},
+		downloader: {
+			main: {
+				options: {
+					version: gc.version,
+					sdk: gc.sdk == 'normal' ? false : true
+				}
+			}
+		},
+		zip: {
+			main: {
+				router: function (filepath) {
+					return filepath.split('/').slice(1).join('/');
+				},
+				src: ['project/**/*'],
+				dest: 'build/package.nw'
+			}
+		},
+		unzip: {
+			unzip_001: {
+				router: function (filepath) {
+					return filepath.split('/').slice(1).join('/');
+				},
+				src: `.cache/${gc.sdk}.zip`,
+				dest: `.cache/${gc.sdk}/`
+			},
+			unzip_002: {
+				src: `.cache/ffmpeg.zip`,
+				dest: `.cache/${gc.sdk}/`
+			},
+		},
+		buildnw: {
+			main: {}
+		},
+		innosetup: {
+			main: {
+				options: {
+					gui: false,
+					verbose: true,
+				},
+				script: __dirname + "/install.iss"
+			}
+		},
 		jshint: {
 			src: [
 				'src/raffle/js/rafle.js'
@@ -87,15 +121,17 @@ module.exports = function(grunt){
 				'tests/',
 				'src/raffle/css/bin/',
 				'project/assets',
-				'installer/',
+				'install/',
 				'prejscss/',
-				'.nwjs/',
-				'.temp/'
 			],
-			temp: [
-				'.nwjs/raffleprizes/win32/temp/',
-				'.nwjs/raffleprizes/win64/temp/',
-				'.temp/'
+			vk: [
+				'build/vk_*',
+				'build/vulkan*',
+				'build/swiftshader',
+				'build/locales/*.info'
+			],
+			lock: [
+				'project/package-lock.json'
 			]
 		},
 		imagemin: {
@@ -169,14 +205,14 @@ module.exports = function(grunt){
 			nwjs: {
 				dest: "project/package.json",
 				options: {
-					"app_name": "<%= pkg.name %>-projectsoft",
+					"app_name": "<%= pkg.name %>",
 					"main": "index.html",
 					"name": "<%= pkg.name %>",
 					"nodejs": true,
 					"version": "<%= pkg.version %>",
 					"winIco": "favicon.ico",
 					"page-cache": false,
-					"chromium-args": "--user-data-dir='temp/' --disk-cache-size=1 --media-cache-size=1",
+					"chromium-args": "--disk-cache-size=1 --media-cache-size=1",
 					"webkit": {
 						"plugin": true,
 					},
@@ -185,7 +221,7 @@ module.exports = function(grunt){
 						"frame": true,
 						"height": 400,
 						"icon": "favicon.png",
-						"id": "<%= pkg.name %>-projectsoft",
+						"id": "<%= pkg.name %>",
 						"kiosk_emulation": true,
 						"mac_icon": "favicon.png",
 						"min_height": 400,
@@ -367,6 +403,7 @@ module.exports = function(grunt){
 				}
 			}
 		},
+		/*
 		autoprefixer:{
 			options: {
 				browsers: ['last 2 versions'],
@@ -408,6 +445,7 @@ module.exports = function(grunt){
 				]
 			}
 		},
+		*/
 		cssmin: {
 			options: {
 				mergeIntoShorthands: false,
@@ -415,8 +453,9 @@ module.exports = function(grunt){
 			},
 			minify: {
 				files: {
-					'tests/css/inc/app.css' : ['test/css/replace/app.css'],
-					'project/assets/css/app.css' : ['test/css/replace/app.css']
+					//'tests/css/inc/app.css' : ['test/css/replace/app.css'],
+					//'project/assets/css/app.css' : ['test/css/replace/app.css']
+					'tests/css/inc/app.css' : ['prejscss/app.css'],
 				}
 			}
 		},
@@ -504,39 +543,14 @@ module.exports = function(grunt){
 					'**',
 				],
 				dest: 'project/RecordRTC/',
-			}
-		},
-		nwjs: {
-			options: {
-				platforms: ['win32'],
-				winIco: __dirname+'/project/favicon.ico',
-				buildDir: __dirname+'/.nwjs',
-				flavor: gc.sdk,
-				version: gc.version,
-				cacheDir: __dirname+'/.cache',
-				zip: false,
-				appName: pkg.appName,
-				appVersion: pkg.version
 			},
-			src: [__dirname+'/project/**/*']
+			nwjs: {
+				expand: true,
+				cwd: `.cache/${gc.sdk}`,
+				src: "**",
+				dest: "build/"
+			},
 		},
-		exec: {
-			test: {
-				cmd: 'start "" /wait  .cache/' + gc.version + '-' + gc.sdk + '/win64/nw project/'
-			}
-		},
-		// Изменения файлов
-		watch: {
-			dev : {
-				files: [
-					'src/raffle/**/*',
-				],
-				tasks: tasks.test
-			}
-		}
 	});
 	grunt.registerTask('default',tasks.default);
-	grunt.registerTask('build', tasks.build);
-	grunt.registerTask('test', tasks.test);
-	grunt.registerTask('dev', tasks.dev);
 };

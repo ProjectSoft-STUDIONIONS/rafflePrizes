@@ -5,9 +5,9 @@ module.exports = function(grunt) {
 
 	const resourceEdit = function(){
 		return new Promise(async function(resolve, reject){
-			const app = grunt.file.readJSON('application/package.json');
+			const app = grunt.file.readJSON('project/package.json');
 			const rcEditOptions = {
-				"icon": "application/favicon.ico",
+				"icon": "project/favicon.ico",
 				"file-version": app.version,
 				"product-version": app.version,
 				"version-string": {
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 				},
 			};
 			await rcedit('build/nw.exe', rcEditOptions);
-			await fs.renameSync('build/nw.exe', 'build/YourRadio.exe')
+			await fs.renameSync('build/nw.exe', 'build/RafflePrizes.exe')
 			resolve();
 		});
 	}
