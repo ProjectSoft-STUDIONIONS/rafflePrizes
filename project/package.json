@@ -40,6 +40,6 @@
 		"rimraf": "^3.0.2",
 		"underscore": "^1.13.2"
 	},
-	"buildDate": "25 June 2024 15:31:55",
+	"buildDate": "25 June 2024 16:58:13",
 	"description": "Генератор розыгрыша призов"
 }
