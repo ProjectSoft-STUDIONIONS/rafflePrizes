@@ -4,7 +4,7 @@ on: [push]
   #   tags:
   #     - "*"
 concurrency:
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   build:
     name: Build
