@@ -3,7 +3,7 @@
 	"main": "index.html",
 	"name": "raffleprizes",
 	"nodejs": true,
-	"version": "3.2.1",
+	"version": "3.2.2",
 	"winIco": "favicon.ico",
 	"page-cache": false,
 	"chromium-args": "--disk-cache-size=1 --media-cache-size=1",
@@ -40,6 +40,6 @@
 		"rimraf": "^3.0.2",
 		"underscore": "^1.13.2"
 	},
-	"buildDate": "25 June 2024 16:58:13",
+	"buildDate": "26 June 2024 06:45:51",
 	"description": "Генератор розыгрыша призов"
 }
